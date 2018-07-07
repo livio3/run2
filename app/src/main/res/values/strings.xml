@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">run2</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password </string>
+    <string name="action_sign_in">Sign in </string>
+    <string name="error_incorrect_password">This password  or username is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
+
+    <string name="btnListaGare">Back</string>
+</resources>
