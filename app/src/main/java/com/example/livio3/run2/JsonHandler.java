@@ -17,6 +17,9 @@ import java.util.List;
  */
 
 public class JsonHandler {
+    /*
+    handle parsing into Race Obj and from RaceObg(debug to string)
+     */
     protected static final String tryCostant="[{\"dateRace\":\"2018-7-8-16:0\",\"description\":\"maratona\",\"distance\":44.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":0,\"locality\":\"Terminillo (RI)\",\"n_max_runner\":150,\"name\":\"K42 Italia \",\"note\":\"KSprint\\n\",\"prenExpire\":\"2018-7-5-24:0\",\"urlImage\":\"http://www.k42italia.org/images/logos/k21_TerLeo_logo.gif\",\"urlRace\":\"http://www.k42italia.org/\"},{\"dateRace\":\"2018-7-8-10:0\",\"description\":\"maratona\",\"distance\":44.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":1,\"locality\":\"S.Martino D\\u0027Ocre \",\"n_max_runner\":150,\"name\":\" S.Martino Walk \\u0026 Cross Country \",\"note\":\"seconda edizione\\n\",\"prenExpire\":\"2018-7-4-24:0\",\"urlImage\":\"https://farm2.staticflickr.com/1735/29046389218_878ff22d69_z.jpg\",\"urlRace\":\"http://www.polisportivasanmartino.it/\"},{\"dateRace\":\"2018-7-21-5:30\",\"description\":\"corri all\\u0027alba\",\"distance\":14.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":2,\"locality\":\"Latina\",\"n_max_runner\":100,\"name\":\"Alba Run\",\"note\":\"  \",\"prenExpire\":\"2018-7-15-24:0\",\"urlImage\":\" \",\"urlRace\":\"\"},{\"dateRace\":\"2018-7-29-18:0\",\"description\":\"trail\",\"distance\":11.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":3,\"locality\":\"Velletri (RM)\",\"n_max_runner\":50,\"name\":\"trofeo madonna del colle\",\"note\":\"28^esima edizione\\n\",\"prenExpire\":\"2018-7-28-24:0\",\"urlImage\":\"http://www.uisp.it/latina2/newsImg/news348_big.jpg\",\"urlRace\":\"http://www.uisp.it/latina2/\"}]";
     private String jsonStr;
     private List<Race> races;
@@ -77,9 +80,10 @@ public class JsonHandler {
     //serialization code
     public JsonHandler(List<Race> races ) {
         this.races = races;
-
     }
-    public String exportJson() throws JSONException, NoSuchFieldException { //serialization (debug) return jsonStr for array gived
+    public String exportJson() throws JSONException, NoSuchFieldException {
+        //serialization (debug) return jsonStr for array gived
+        // Gson not work with lenovo...
 
         //Gson only
         Gson gson = new GsonBuilder().setDateFormat(DateFormat.FULL).create();

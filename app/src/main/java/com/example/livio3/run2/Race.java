@@ -8,6 +8,7 @@ import java.util.Random;
 
 /**
  * Created by BBOSS on 05/07/2018.
+ *     todo *to export json string call fillExport ..export..>REPLACE IN LONG STRING expire->"" string generated ready to be imported
  */
 
 public class Race implements Serializable {
@@ -22,8 +23,8 @@ public class Race implements Serializable {
     private String locality;
     private transient DateRace dateRace;
     private transient DateRace prenExpire;
-    private String dateRaceExport;   //TODO ONLY FOR CREATE JSON REMOVE
-    private String prenExpireExport;
+    private String dateRaceExport;   //TODO EXTRA FIELD TO EXPORT JSON STRING REMOVE! *
+    private String prenExpireExport; //TODO EXTRA FIELDS TO EXPORT JSON STRING REMOVE *
     private String urlRace;
     private String urlImage;
     private String note;
@@ -48,7 +49,7 @@ public class Race implements Serializable {
 
     public Race(List<String> keys, List<Object> values){
         //constructor to generate Race obj from List keyValue from json parsing
-        //Lists has to match order of meaning of valus
+        //Lists have to match order of related values
         assert (keys.size()==values.size());
         List<Race> races= new ArrayList<>();
         for(int i=0;i<keys.size();i++){
@@ -62,6 +63,7 @@ public class Race implements Serializable {
         }
     }
     public void setAttributeFromMapping(String key, Object value) throws ParseException {
+        //set an attribute for object (in costruction from json parsing)
         switch (key){
             case "name":
                 this.name=(String) value;
@@ -196,7 +198,8 @@ public class Race implements Serializable {
     }
 
     public void fillExport(){
-        //todo json generating only remove
+        //todo debug only fill extra fields to export json string
+
         this.dateRaceExport=dateRace.toString();
         this.prenExpireExport=prenExpire.toString();
     }

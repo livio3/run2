@@ -57,6 +57,7 @@ class DateRace implements Serializable{
 
     public DateRace(String stringDate) {
         //date format:yyyy-MM-gg-hh:mm
+        //fill date parsing string
         String[] strings=stringDate.split("-");
         this.year=Integer.parseInt(strings[0]);
         this.month=Integer.parseInt(strings[1]);
