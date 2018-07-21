@@ -10,4 +10,14 @@
 
 
     <string name="btnListaGare">Back</string>
+    <string name="confirm">confirm</string>
+    <string name="name">name</string>
+    <string name="description">description</string>
+    <string name="locality">locality</string>
+    <string name="dateRace">date of race</string>
+    <string name="prenExpire">prenotation Expire</string>
+    <string name="n_max_runner">max number of runners</string>
+    <string name="distance">distance</string>
+    <string name="note">note</string>
+    <string name="timeRace">time of race</string>
 </resources>

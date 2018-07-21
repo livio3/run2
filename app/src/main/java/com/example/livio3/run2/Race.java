@@ -1,14 +1,8 @@
 package com.example.livio3.run2;
 
-import android.os.Build;
-
-import java.text.DateFormat;
+import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -16,15 +10,18 @@ import java.util.Random;
  * Created by BBOSS on 05/07/2018.
  */
 
-public class Race {
+public class Race implements Serializable {
+    /*
+    [{"dateRace":{"day":17,"hour":0,"min":6,"month":7,"year":2018},"description":"1609077159","distance":0.024090424179222025,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":43,"name":"1268486985","note":"149563508","prenExpire":{"day":14,"hour":1,"min":25,"month":9,"year":2018},"urlImage":"77387405","urlRace":"-83698696"},{"dateRace":{"day":7,"hour":18,"min":14,"month":10,"year":2018},"description":"1229755864","distance":0.07828670528993098,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":47,"name":"237989295","note":"-36138641","prenExpire":{"day":6,"hour":5,"min":17,"month":6,"year":2018},"urlImage":"-2028357836","urlRace":"2096143497"},{"dateRace":{"day":5,"hour":11,"min":9,"month":1,"year":2018},"description":"1012574097","distance":0.6251512521856593,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":58,"name":"-1341887402","note":"-1901776929","prenExpire":{"day":19,"hour":3,"min":34,"month":5,"year":2018},"urlImage":"-951748012","urlRace":"-902199451"},{"dateRace":{"day":3,"hour":12,"min":33,"month":8,"year":2018},"description":"964661503","distance":0.8419799052411877,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":-20,"name":"-117820629","note":"661868999","prenExpire":{"day":17,"hour":2,"min":49,"month":2,"year":2018},"urlImage":"1199300035","urlRace":"-932433724"},{"dateRace":{"day":2,"hour":10,"min":38,"month":4,"year":2018},"description":"-105560326","distance":0.1610439308537448,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":70,"name":"-1471124354","note":"-2020379759","prenExpire":{"day":25,"hour":8,"min":13,"month":8,"year":2018},"urlImage":"-1414133536","urlRace":"1168851384"},{"dateRace":{"day":10,"hour":8,"min":2,"month":8,"year":2018},"description":"564285602","distance":0.5385247129911805,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":80,"name":"47564970","note":"-697807360","prenExpire":{"day":4,"hour":8,"min":10,"month":2,"year":2018},"urlImage":"117492383","urlRace":"-1940331069"},{"dateRace":{"day":23,"hour":14,"min":39,"month":2,"year":2018},"description":"-1165418175","distance":0.11172659886948855,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":10,"name":"2135585114","note":"-1369731391","prenExpire":{"day":2,"hour":10,"min":4,"month":3,"year":2018},"urlImage":"-804110402","urlRace":"-2063566711"},{"dateRace":{"day":3,"hour":11,"min":21,"month":7,"year":2018},"description":"1649043716","distance":0.4444382065840152,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":-54,"name":"1837240113","note":"-391155687","prenExpire":{"day":2,"hour":8,"min":25,"month":7,"year":2018},"urlImage":"2124755519","urlRace":"-1127484595"},{"dateRace":{"day":6,"hour":4,"min":4,"month":4,"year":2018},"description":"789733655","distance":0.7668922022104521,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":-35,"name":"890574012","note":"-725405957","prenExpire":{"day":21,"hour":12,"min":47,"month":1,"year":2018},"urlImage":"-1627965086","urlRace":"-727848053"},{"dateRace":{"day":27,"hour":16,"min":19,"month":6,"year":2018},"description":"1754446927","distance":0.8353206833203877,"formattingDate":"yyyy-MM-dd","id_race":0,"locality":"ROMA!","n_max_runner":-91,"name":"283014637","note":"534239118","prenExpire":{"day":19,"hour":12,"min":6,"month":0,"year":2018},"urlImage":"-1175636287","urlRace":"-201190576"}]
+     */
     private int id_race;
 
     private final String formattingDate="yyyy-MM-dd";
     private String name;
     private String description;
     private String locality;
-    private DateRace dateRace;
-    private DateRace prenExpire;     //TODO COMPATIBILITY API>26 :(
+    private transient DateRace dateRace;
+    private transient DateRace prenExpire;
     private String dateRaceExport;   //TODO ONLY FOR CREATE JSON REMOVE
     private String prenExpireExport;
     private String urlRace;
@@ -33,7 +30,23 @@ public class Race {
     private int n_max_runner;
     private Double distance;
 
-    public Race(List<String> keys,List<Object> values){
+    public Race(int id_race, String name, String description, String locality, DateRace dateRace,
+                DateRace prenExpire, String urlRace, String urlImage, String note,
+                int n_max_runner, Double distance) {
+        this.id_race = id_race;
+        this.name = name;
+        this.description = description;
+        this.locality = locality;
+        this.dateRace = dateRace;
+        this.prenExpire = prenExpire;
+        this.urlRace = urlRace;
+        this.urlImage = urlImage;
+        this.note = note;
+        this.n_max_runner = n_max_runner;
+        this.distance = distance;
+    }
+
+    public Race(List<String> keys, List<Object> values){
         //constructor to generate Race obj from List keyValue from json parsing
         //Lists has to match order of meaning of valus
         assert (keys.size()==values.size());
@@ -84,9 +97,6 @@ public class Race {
             case "distance":
                 this.distance= (Double) value;
                 break;
-
-
-
         }
     }
     public double getDistance() {
@@ -185,6 +195,12 @@ public class Race {
         this.n_max_runner = n_max_runner;
     }
 
+    public void fillExport(){
+        //todo json generating only remove
+        this.dateRaceExport=dateRace.toString();
+        this.prenExpireExport=prenExpire.toString();
+    }
+
     public Race() {
         Random random = new Random();
         urlRace=String.valueOf(random.nextInt());
@@ -195,10 +211,10 @@ public class Race {
         this.description = String.valueOf(random.nextInt());
         name = String.valueOf(random.nextInt());
         locality = "ROMA!";
-        dateRaceExport =   new SimpleDateFormat("yy-MM-dd").format(new Date());
-        prenExpireExport = new SimpleDateFormat("yy-MM-dd").format(new Date());
-
+        this.dateRace=new DateRace();
+        this.prenExpire=new DateRace();
         distance= random.nextDouble();
 
     }
+
 }

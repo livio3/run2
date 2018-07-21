@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 public class JsonHandler {
-    private static final String tryCostant="[{\"dateRace\":\"2018-07-05T10:43:07.402\",\"description\":\"-687347726\",\"distance\":0.27151275,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":-46,\"name\":\"-199837474\",\"note\":\"314909306\",\"prenExpire\":\"2018-06-29T10:43:07.405\",\"urlImage\":\"1815575071\",\"urlRace\":\"-748333301\"},{\"dateRace\":\"2018-06-30T10:43:07.408\",\"description\":\"597471288\",\"distance\":0.38573122,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":35,\"name\":\"-276660612\",\"note\":\"-1504999936\",\"prenExpire\":\"2018-07-05T10:43:07.41\",\"urlImage\":\"693077652\",\"urlRace\":\"1017607733\"},{\"dateRace\":\"2018-07-17T10:43:07.413\",\"description\":\"-322150895\",\"distance\":0.0302248,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":-31,\"name\":\"-1945940308\",\"note\":\"346445414\",\"prenExpire\":\"2018-06-27T10:43:07.415\",\"urlImage\":\"-1184682673\",\"urlRace\":\"1010355754\"},{\"dateRace\":\"2018-06-28T10:43:07.417\",\"description\":\"2062911415\",\"distance\":0.0571813,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":32,\"name\":\"-2137901402\",\"note\":\"899865011\",\"prenExpire\":\"2018-06-27T10:43:07.419\",\"urlImage\":\"-387928869\",\"urlRace\":\"1452418930\"},{\"dateRace\":\"2018-07-07T10:43:07.422\",\"description\":\"-901125564\",\"distance\":0.25884908,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":13,\"name\":\"1326676588\",\"note\":\"1968188962\",\"prenExpire\":\"2018-07-08T10:43:07.424\",\"urlImage\":\"680765794\",\"urlRace\":\"1447337786\"},{\"dateRace\":\"2018-07-09T10:43:07.426\",\"description\":\"-1088345126\",\"distance\":0.7362692,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":87,\"name\":\"-2103682983\",\"note\":\"995866257\",\"prenExpire\":\"2018-06-29T10:43:07.429\",\"urlImage\":\"-1471480116\",\"urlRace\":\"-380535527\"},{\"dateRace\":\"2018-07-05T10:43:07.431\",\"description\":\"-2056855820\",\"distance\":0.9487671,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":-28,\"name\":\"-2086687293\",\"note\":\"-383326735\",\"prenExpire\":\"2018-07-09T10:43:07.433\",\"urlImage\":\"543729199\",\"urlRace\":\"-936690356\"},{\"dateRace\":\"2018-07-07T10:43:07.435\",\"description\":\"-1005402131\",\"distance\":0.5966099,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":-23,\"name\":\"169777741\",\"note\":\"533257577\",\"prenExpire\":\"2018-07-15T10:43:07.437\",\"urlImage\":\"-580558718\",\"urlRace\":\"522314405\"},{\"dateRace\":\"2018-07-06T10:43:07.439\",\"description\":\"930482746\",\"distance\":0.63580704,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":-50,\"name\":\"435818443\",\"note\":\"1060446342\",\"prenExpire\":\"2018-07-07T10:43:07.441\",\"urlImage\":\"840993565\",\"urlRace\":\"1170971819\"},{\"dateRace\":\"2018-06-30T10:43:07.443\",\"description\":\"1390380842\",\"distance\":0.6015908,\"id_race\":0,\"locality\":\"ROMA!\",\"n_max_runner\":-69,\"name\":\"-571215802\",\"note\":\"-1978448311\",\"prenExpire\":\"2018-07-08T10:43:07.445\",\"urlImage\":\"2063112278\",\"urlRace\":\"1185196101\"}]";
+    protected static final String tryCostant="[{\"dateRace\":\"2018-7-8-16:0\",\"description\":\"maratona\",\"distance\":44.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":0,\"locality\":\"Terminillo (RI)\",\"n_max_runner\":150,\"name\":\"K42 Italia \",\"note\":\"KSprint\\n\",\"prenExpire\":\"2018-7-5-24:0\",\"urlImage\":\"http://www.k42italia.org/images/logos/k21_TerLeo_logo.gif\",\"urlRace\":\"http://www.k42italia.org/\"},{\"dateRace\":\"2018-7-8-10:0\",\"description\":\"maratona\",\"distance\":44.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":1,\"locality\":\"S.Martino D\\u0027Ocre \",\"n_max_runner\":150,\"name\":\" S.Martino Walk \\u0026 Cross Country \",\"note\":\"seconda edizione\\n\",\"prenExpire\":\"2018-7-4-24:0\",\"urlImage\":\"https://farm2.staticflickr.com/1735/29046389218_878ff22d69_z.jpg\",\"urlRace\":\"http://www.polisportivasanmartino.it/\"},{\"dateRace\":\"2018-7-21-5:30\",\"description\":\"corri all\\u0027alba\",\"distance\":14.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":2,\"locality\":\"Latina\",\"n_max_runner\":100,\"name\":\"Alba Run\",\"note\":\"  \",\"prenExpire\":\"2018-7-15-24:0\",\"urlImage\":\" \",\"urlRace\":\"\"},{\"dateRace\":\"2018-7-29-18:0\",\"description\":\"trail\",\"distance\":11.0,\"formattingDate\":\"yyyy-MM-dd\",\"id_race\":3,\"locality\":\"Velletri (RM)\",\"n_max_runner\":50,\"name\":\"trofeo madonna del colle\",\"note\":\"28^esima edizione\\n\",\"prenExpire\":\"2018-7-28-24:0\",\"urlImage\":\"http://www.uisp.it/latina2/newsImg/news348_big.jpg\",\"urlRace\":\"http://www.uisp.it/latina2/\"}]";
     private String jsonStr;
     private List<Race> races;
     private Race race;
@@ -79,7 +79,7 @@ public class JsonHandler {
         this.races = races;
 
     }
-    public String exportJson() throws JSONException { //serialization (debug) return jsonStr for array gived
+    public String exportJson() throws JSONException, NoSuchFieldException { //serialization (debug) return jsonStr for array gived
 
         //Gson only
         Gson gson = new GsonBuilder().setDateFormat(DateFormat.FULL).create();
@@ -92,17 +92,40 @@ public class JsonHandler {
 
         //SERIALIZATION SAMPLE
         List<Race> racess= new ArrayList<>();
-        for(int i=0;i<10;i++){
-            racess.add(new Race());
+        Race race=new Race(0,"K42 Italia ","maratona","Terminillo (RI)",
+                new DateRace("2018-07-08-16:00"),new DateRace("2018-07-05-24:00"),
+                "http://www.k42italia.org/","http://www.k42italia.org/images/logos/k21_TerLeo_logo.gif",
+                "KSprint\n" ,150,44.00);
+        racess.add(race);
+        racess.add(new Race(1," S.Martino Walk & Cross Country ","maratona","S.Martino D'Ocre ",
+                new DateRace("2018-07-08-10:00"),new DateRace("2018-07-04-24:00"),
+                "http://www.polisportivasanmartino.it/","https://farm2.staticflickr.com/1735/29046389218_878ff22d69_z.jpg",
+                "seconda edizione\n" ,150,44.00));
+        racess.add(new Race(2,"Alba Run","corri all'alba","Latina",
+                new DateRace("2018-07-21-05:30"),new DateRace("2018-07-15-24:00"),
+                ""," ",
+                "  " ,100,14.00));
+        racess.add(new Race(3,"trofeo madonna del colle","trail","Velletri (RM)",
+                new DateRace("2018-07-29-18:00"),new DateRace("2018-07-28-24:00"),
+                "http://www.uisp.it/latina2/","http://www.uisp.it/latina2/newsImg/news348_big.jpg",
+                "28^esima edizione\n" , 50,11.00));
+
+        for (int x=0;x<racess.size();x++){
+            racess.get(x).fillExport();
         }
         JsonHandler jsonHandler= new JsonHandler(racess);
-        String out=jsonHandler.exportJson();
+        String out= null;
+        try {
+            out = jsonHandler.exportJson();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
         System.out.print(out);
 
         //DESERIALIZATION
-        /*
-        JsonHandler  handler=new JsonHandler(JsonHandler.tryCostant);
-        List<Race> racess= handler.getRaces();
-        System.out.print("fuck"); */
+
+        JsonHandler handler=new JsonHandler(JsonHandler.tryCostant);
+        List<Race> r= handler.getRaces();
+        System.out.print("fuck");
     }
 }
