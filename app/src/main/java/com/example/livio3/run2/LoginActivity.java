@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,10 +22,7 @@ import android.widget.TextView;
 
 import com.example.livio3.run2.DB.DbAdapter;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +34,7 @@ public class LoginActivity extends AppCompatActivity  {
 
 
     private UserLoginTask mAuthTask = null;
-
+    public final static String KEY_ID = "id";
     // UI references.
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
@@ -75,7 +71,7 @@ public class LoginActivity extends AppCompatActivity  {
         dbAdapter = new DbAdapter(this);
         try {
             dbAdapter.open();
-           dbAdapter.createRunner("a", "b",  "a", "abc");
+           //dbAdapter.createRunner("a", "b",  "a", "abc");
             usernames = takeUsernames();
             dbAdapter.close();
         }
@@ -139,7 +135,7 @@ public class LoginActivity extends AppCompatActivity  {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUsernameView.getText().toString();
+        String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -153,7 +149,7 @@ public class LoginActivity extends AppCompatActivity  {
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
@@ -167,7 +163,7 @@ public class LoginActivity extends AppCompatActivity  {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
         }
     }
@@ -223,11 +219,13 @@ public class LoginActivity extends AppCompatActivity  {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        private final String mUsername;
         private final String mPassword;
+        private  String idMember;
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
+
+        UserLoginTask(String username, String password) {
+            mUsername = username;
             mPassword = password;
         }
 
@@ -235,7 +233,7 @@ public class LoginActivity extends AppCompatActivity  {
         protected Boolean doInBackground(Void... params) {
             dbAdapter.open();
             try {
-                mCursor = dbAdapter.retrayRunner(mEmail, mPassword);
+                mCursor = dbAdapter.retrayRunner(mUsername, mPassword);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -245,6 +243,7 @@ public class LoginActivity extends AppCompatActivity  {
 
                 if (mCursor.moveToNext()) {
                     String name = mCursor.getString(2);
+                    idMember = String.valueOf( mCursor.getInt(0));
                     if (mCursor.moveToNext()) {
                         //String name = mCursor.getString(2);
                         System.err.print("error");
@@ -271,11 +270,12 @@ public class LoginActivity extends AppCompatActivity  {
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(LoginActivity.this, ListaGare.class);
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
 
                 SimpleDateFormat simpleDateFormat= new SimpleDateFormat();
                 simpleDateFormat.format(new Date());
                 Date date= new Date();
+                intent.putExtra(KEY_ID, idMember);  //si deve passare l'informazione sul id del socio
                 startActivity(intent);
 
                 finish();

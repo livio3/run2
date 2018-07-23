@@ -16,6 +16,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
     /*
     activity per visualizzare tutte le info su una gara
      */
+
     private TextView localityTv;
     private TextView descriptionTv;
     private TextView timeRaceTv;
@@ -28,6 +29,9 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
     private ImageView largeImg;
     private Button btnBack;
     private Button btnConfirm;
+
+    private String idMember;
+
     protected static final String INTENT_SWAP_STR="race";
     private Race clickedRace;
     @Override
@@ -54,17 +58,25 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         btnBack.setOnClickListener(this);
         btnConfirm.setOnClickListener( this);
 
+        //recupero l'id del socio dall'intent
+        Bundle data = getIntent().getExtras();
+        idMember = data.getString(LoginActivity.KEY_ID);
+        System.out.println(idMember);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back2Races:
-                startActivity(new Intent(this,ListaGare.class));
+                Intent intent = new Intent(this,ListaGare.class);
+                intent.putExtra(LoginActivity.KEY_ID, idMember);
+                startActivity(intent);
                 break;
             case R.id.btnConfirm:
                 //TODO livio CHECK IF EXPIRED PRENOTATION
                 //TODO livio CHECK THERE IS AVAIBILITY
+                //TODO
                 confirmDialogBasic();
                 System.out.println("returned from allert dialog");
                 break;

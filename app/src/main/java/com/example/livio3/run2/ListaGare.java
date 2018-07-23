@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ListaGare extends AppCompatActivity {
 
+    private String idMember;
     private ListView lvGare;
     private Button btnBack;
     private List<Race> races;
@@ -31,7 +32,26 @@ public class ListaGare extends AppCompatActivity {
         setContentView(R.layout.activity_lista_gare);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
+        //recupero l'id del socio dall'intent
+        try {
+            Bundle data = getIntent().getExtras();
+
+            idMember = data.getString(LoginActivity.KEY_ID);
+            System.out.println(idMember);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListaGare.this, MenuActivity.class);
+                intent.putExtra(LoginActivity.KEY_ID, idMember);
+                startActivity(intent);
+            }
+        });
 
         lvGare = findViewById(R.id.lvGare);
 
@@ -40,7 +60,9 @@ public class ListaGare extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Race raceClicked;
                 raceClicked = races.get(position);
+
                 Intent intent = new Intent(ListaGare.this, DetailedRace.class);
+                intent.putExtra(LoginActivity.KEY_ID, idMember);
                 intent.putExtra(DetailedRace.INTENT_SWAP_STR, raceClicked);//todo check serializeble work
                 startActivity(intent);
             }

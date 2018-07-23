@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".ListaGare" />
         <activity android:name=".DetailedRace" />
+        <activity android:name=".MenuActivity" />
 
     </application>
 

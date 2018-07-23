@@ -13,11 +13,11 @@ public class Runner {
     private  char sex;
     private  String username;
     private  String password;
-    private  LocalDate birth_date;
+    private  String birth_date;
 
     public Runner() {}
 
-    public Runner( String name, String surname, char sex, String username, String password, LocalDate birth_date) {
+    public Runner( String name, String surname, char sex, String username, String password, String birth_date) {
 
         this.name = name;
         this.surname = surname;
@@ -78,11 +78,11 @@ public class Runner {
         this.password = password;
     }
 
-    public LocalDate getBirth_date() {
+    public String getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(LocalDate birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
     }
 }
