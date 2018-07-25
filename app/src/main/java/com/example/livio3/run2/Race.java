@@ -21,8 +21,8 @@ public class Race implements Serializable {
     private String name;
     private String description;
     private String locality;
-    private transient DateRace dateRace;
-    private transient DateRace prenExpire;
+    private   DateRace dateRace;
+    private   DateRace prenExpire;
     private String dateRaceExport;   //TODO EXTRA FIELD TO EXPORT JSON STRING REMOVE! *
     private String prenExpireExport; //TODO EXTRA FIELDS TO EXPORT JSON STRING REMOVE *
     private String urlRace;
@@ -51,7 +51,7 @@ public class Race implements Serializable {
         //constructor to generate Race obj from List keyValue from json parsing
         //Lists have to match order of related values
         assert (keys.size()==values.size());
-        List<Race> races= new ArrayList<>();
+
         for(int i=0;i<keys.size();i++){
             String key=keys.get(i);
             Object value=values.get(i);
@@ -64,8 +64,10 @@ public class Race implements Serializable {
     }
     public void setAttributeFromMapping(String key, Object value) throws ParseException {
         //set an attribute for object (in costruction from json parsing)
+        String valueObtained;               //parsed value from json related to key
         switch (key){
             case "name":
+
                 this.name=(String) value;
                 break;
             case "description":

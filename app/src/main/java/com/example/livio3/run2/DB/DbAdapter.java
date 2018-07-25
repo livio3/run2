@@ -53,6 +53,7 @@ public class DbAdapter {
 
     public long createRunner(String name, String surname, String username, String password) {
         ContentValues values = createContentValues(name,  surname,  username,  password);
+        //database.insertWithOnConflict(DB_TABLE,null,values,DB) //todo add on conflict do nothing
         return database.insertOrThrow(DB_TABLE, null, values);
     }
 

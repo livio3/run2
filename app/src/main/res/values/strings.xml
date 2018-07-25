@@ -25,4 +25,6 @@
     <string name="nextRaces">Prossime gare</string>
     <string name="btnBack">Back</string>
     <string name="loggout">loggout</string>
+    <string name="waitTxt">getting new files from server</string>
+    <string name="infoNotAvaible">information not avaible</string>
 </resources>

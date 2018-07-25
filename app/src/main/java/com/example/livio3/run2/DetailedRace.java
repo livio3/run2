@@ -3,6 +3,7 @@ package com.example.livio3.run2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,6 +39,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_race);
+        //TODO SOME TV NOT FOUNDED :(
         descriptionTv = findViewById(R.id.descriptionTv);
         timeRaceTv = findViewById(R.id.timeRaceTv);
         dateRaceTv = findViewById(R.id.dateRaceTv);
@@ -52,8 +54,23 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         Intent intent= getIntent();
         Serializable race = intent.getSerializableExtra(INTENT_SWAP_STR);
         clickedRace = (Race) race;
-        //TODO MAP RACE ATTRIBUTE IN TEXTVIEWS OF THIS ACTIVITY
-        distanceTv.setText(String.valueOf(clickedRace.getDistance()));
+
+        //MAPPING ATTRIBUTES FROM  RACE  TEXTVIEWS OF THIS ACTIVITY
+
+        setTextViewInfo(distanceTv,String.valueOf(clickedRace.getDistance()));
+        setTextViewInfo(maxNumRannerTv,String.valueOf(clickedRace.getN_max_runner()));
+        setTextViewInfo(dateRaceTv,(clickedRace.getDateRace().toStringDate()));
+        setTextViewInfo(localityTv, clickedRace.getLocality());
+        setTextViewInfo(descriptionTv, clickedRace.getDescription());
+        setTextViewInfo(timeRaceTv, clickedRace.getDateRace().toStringTime());
+        setTextViewInfo(nameRaceTv,clickedRace.getName());
+        setTextViewInfo(noteTv, clickedRace.getNote());
+        setTextViewInfo(prenExpireTv,clickedRace.getPrenExpire().toStringDate());
+        Bitmap downloadedBitmap=ListaGare.imgBuffer.get(clickedRace.getUrlImage());
+        if(downloadedBitmap!=null)
+            largeImg.setImageBitmap(downloadedBitmap);
+        //todo check unside effect on resizing in ListviewAdapter :D
+
         //setting listeners
         btnBack.setOnClickListener(this);
         btnConfirm.setOnClickListener( this);
@@ -63,6 +80,18 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         idMember = data.getString(LoginActivity.KEY_ID);
         System.out.println(idMember);
 
+    }
+
+    private void setTextViewInfo(TextView tv, String str) {
+        //set string to textview or default str=info not avaible :)
+        if(tv==null){
+            System.err.println("null tv trying to set str"+str);
+            return;
+        }
+        if(str!=null)
+            tv.setText(str);
+        else
+            tv.setText(R.string.infoNotAvaible);
     }
 
     @Override
