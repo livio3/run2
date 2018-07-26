@@ -63,7 +63,9 @@ public class ListaGare extends AppCompatActivity {
 
                 Intent intent = new Intent(ListaGare.this, DetailedRace.class);
                 intent.putExtra(LoginActivity.KEY_ID, idMember);
-                intent.putExtra(DetailedRace.INTENT_SWAP_STR, raceClicked);//todo check serializeble work
+                MyParcelable myParcelable = new MyParcelable();
+                myParcelable.setObject(raceClicked);
+                intent.putExtra(DetailedRace.INTENT_SWAP_STR,myParcelable); //todo check serializeble work
                 startActivity(intent);
             }
         });

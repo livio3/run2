@@ -1,6 +1,9 @@
 package com.example.livio3.run2;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -78,6 +81,7 @@ class DateRace implements Serializable{
         Random random=new Random();
         return Math.abs(random.nextInt(bound));
     }
+
     public DateRace(){
         //random generated date
         this.year=2018+wrapRandomPos(1);
@@ -86,4 +90,58 @@ class DateRace implements Serializable{
         this.hour=wrapRandomPos(20);
         this.min=wrapRandomPos(60);
     }
+
+    public static DateRace now() {
+        DateRace dateRace = new DateRace();
+        Calendar c = Calendar.getInstance();
+
+        dateRace.setYear(c.get(Calendar.YEAR));
+        dateRace.setMonth(c.get(Calendar.MONTH+1));
+        dateRace.setDay(c.get(Calendar.DAY_OF_MONTH));
+        dateRace.setHour(c.get(Calendar.HOUR));
+        dateRace.setMin(c.get(Calendar.MINUTE));
+        System.out.println(dateRace);
+        return dateRace;
+    }
+
+    /*
+    -1 se dateRace_1 viene prima altrimenti 0 se sono uguali 1 se vieno dopo di dateRace_2
+     */
+
+    public  static int compareDateRace(DateRace dateRace_1, DateRace dateRace_2) {
+        if(dateRace_1.getYear() < dateRace_2.getYear())
+            return -1;
+        if(dateRace_1.getYear() > dateRace_2.getYear())
+            return 1;
+        if(dateRace_1.getYear() == dateRace_2.getYear()) {
+            if(dateRace_1.getMonth() <  dateRace_2.getMonth())
+                return -1;
+
+            if(dateRace_1.getMonth() > dateRace_2.getMonth() )
+                return 1;
+            if(dateRace_1.getMonth() == dateRace_2.getMonth()) {
+                if(dateRace_1.getDay() < dateRace_2.getDay())
+                    return -1;
+                if(dateRace_1.getDay() > dateRace_2.getDay())
+                    return 1;
+                if(dateRace_1.getDay() == dateRace_2.getDay()) {
+                    if(dateRace_1.getHour() < dateRace_2.getHour())
+                        return -1;
+                    if(dateRace_1.getHour() > dateRace_2.getHour())
+                        return 1;
+                    if(dateRace_1.getHour() == dateRace_2.getHour()) {
+                        if(dateRace_1.getMin() < dateRace_2.getMin())
+                            return -1;
+                        if(dateRace_2.getMin() > dateRace_2.getMin())
+                            return 1;
+
+                    }
+                }
+            }
+
+        }
+        return 0;
+    }
+
+
 }
