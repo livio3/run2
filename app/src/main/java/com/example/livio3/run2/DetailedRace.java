@@ -3,6 +3,7 @@ package com.example.livio3.run2;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -54,13 +55,28 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         largeImg = findViewById(R.id.raceImgVBig);
         btnBack = findViewById(R.id.back2Races);
         btnConfirm=findViewById(R.id.btnConfirm);
+        localityTv = findViewById(R.id.localityTv);
         Intent intent= getIntent();
         MyParcelable myParcelable = (MyParcelable)intent.getExtras().getParcelable(INTENT_SWAP_STR);
         clickedRace = myParcelable.getObject();
 
 
         //TODO MAP RACE ATTRIBUTE IN TEXTVIEWS OF THIS ACTIVITY
-        distanceTv.setText(String.valueOf(clickedRace.getDistance()));
+        distanceTv.append(String.valueOf(clickedRace.getDistance()));
+        maxNumRannerTv.append(String.valueOf(clickedRace.getN_max_runner()));
+        dateRaceTv.append((clickedRace.getDateRace().toStringDate()));
+        localityTv.append( clickedRace.getLocality());
+        descriptionTv.append(clickedRace.getDescription());
+        timeRaceTv.append(clickedRace.getDateRace().toStringTime());
+        nameRaceTv.append(clickedRace.getName());
+        noteTv.append( clickedRace.getNote());
+        prenExpireTv.append(clickedRace.getPrenExpire().toStringDate());
+        Bitmap downloadedBitmap=ListaGare.imgBuffer.get(clickedRace.getUrlImage());
+        if(downloadedBitmap!=null)
+            largeImg.setImageBitmap(downloadedBitmap);
+
+        //todo check unside effect on resizing in ListviewAdapter :D
+        distanceTv.append(String.valueOf(clickedRace.getDistance()));
         //setting listeners
         btnBack.setOnClickListener(this);
         btnConfirm.setOnClickListener( this);

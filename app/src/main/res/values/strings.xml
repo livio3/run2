@@ -11,15 +11,15 @@
 
     <string name="btnListaGare">Back</string>
     <string name="confirm">confirm</string>
-    <string name="name">name</string>
-    <string name="description">description</string>
-    <string name="locality">locality</string>
-    <string name="dateRace">date of race</string>
-    <string name="prenExpire">prenotation Expire</string>
-    <string name="n_max_runner">max number of runners</string>
-    <string name="distance">distance</string>
-    <string name="note">note</string>
-    <string name="timeRace">time of race</string>
+    <string name="name">Name: -</string>
+    <string name="description">Description: -</string>
+    <string name="locality">Locality: -</string>
+    <string name="dateRace">Date of race: -</string>
+    <string name="prenExpire">Prenotation Expire: -</string>
+    <string name="n_max_runner">Max number of runners: -</string>
+    <string name="distance">Distance: -</string>
+    <string name="note">Note: -</string>
+    <string name="timeRace">Time of race: -</string>
     <string name="listMember">Elenco Soci</string>
     <string name="results">Risultati</string>
     <string name="nextRaces">Prossime gare</string>
@@ -27,4 +27,6 @@
     <string name="loggout">loggout</string>
     <string name="waitTxt">getting new files from server</string>
     <string name="infoNotAvaible">information not avaible</string>
+
+    <integer name="ZERO">0</integer>
 </resources>
