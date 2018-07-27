@@ -1,0 +1,19 @@
+-properties file come a basi di dati per salvare costanti e url repo json
+                e anche json serializzati in cache
+nb io penso che le immagini possono essere messe in "cache" solo durante l exe dell app
+    in hashmap statica protected accessibile
+    wrap in helperclass
+
+versione con simulazione rest put prenotazione
+nb verranno scaricati all inizio di listagare immagini
+    e jsons(prenotazioni e gare) (se non troppo vecchi quelli in properties(cache serializzata)
+    al download di prenotazioni verra riempito db (come cache server ext che realmente è una feature applicabile)
+
+-db wrapper per check prenotazione
+    (prenotazione in db semplicemente idrace<->idsocio)
+-cache serializzata di json prenotazioni in properties
+-curare meglio interfaccie russo russo <3 suggerisce di variare i font perche regoli ci tiene !?!?!WTF!?
+-cazzatine varie come listview con background alternato di colori
+-trovare la via per cogliere l immensita dell universo(domani-dopodomani)
+
+

@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity  {
         dbAdapter = new DbAdapter(this);
         try {
             dbAdapter.open();
-           //dbAdapter.createRunner("a", "b",  "a", "abc");
+            dbAdapter.createRunner("a", "b",  " ", " ");
             usernames = takeUsernames();
             dbAdapter.close();
         }

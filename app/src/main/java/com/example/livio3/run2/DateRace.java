@@ -77,6 +77,12 @@ class DateRace implements Serializable{
         //date format:yyyy-MM-gg-hh:mm
         return year+"-"+month+"-"+day+"-"+hour+":"+min;
     }
+    public String toStringDate(){
+        return year+" "+month+" "+day+" ";
+    }
+    public String toStringTime(){
+        return hour+" : "+min;
+    }
     protected int wrapRandomPos(int bound){
         Random random=new Random();
         return Math.abs(random.nextInt(bound));
