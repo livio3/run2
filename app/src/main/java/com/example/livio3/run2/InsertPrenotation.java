@@ -9,8 +9,9 @@ import com.example.livio3.run2.DB.DbAdapter;
 
 /**
  * Created by livio3 on 26/07/18.
+ * obsolete
  */
-
+@Deprecated
 public class InsertPrenotation extends AsyncTask<Void, Void, String> {
 
     private static final String MSX_ERROR = "Errore nella connessione";
@@ -21,8 +22,8 @@ public class InsertPrenotation extends AsyncTask<Void, Void, String> {
 
     private DbAdapter dbAdapter;
 
-    public InsertPrenotation(String idMember, int idRace, Context context) {
-        this.idMember = Integer.parseInt(idMember);
+    public InsertPrenotation(int idMember, int idRace, Context context) {
+        this.idMember = idMember;
         this.idRace = idRace;
         this.context = context;
         this.dbAdapter = new DbAdapter(context);

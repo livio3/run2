@@ -222,4 +222,23 @@ public class Race implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "Race{" +
+                "id_race=" + id_race +
+                ", formattingDate='" + formattingDate + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", locality='" + locality + '\'' +
+                ", dateRace=" + dateRace +
+                ", prenExpire=" + prenExpire +
+                ", dateRaceExport='" + dateRaceExport + '\'' +
+                ", prenExpireExport='" + prenExpireExport + '\'' +
+                ", urlRace='" + urlRace + '\'' +
+                ", urlImage='" + urlImage + '\'' +
+                ", note='" + note + '\'' +
+                ", n_max_runner=" + n_max_runner +
+                ", distance=" + distance +
+                '}';
+    }
 }

@@ -83,11 +83,12 @@ public class DbAdapter {
     }
 
 
-    public boolean avaibilityPrenotazion(int nMax, int idRace) throws SQLException {
+    public boolean unavaibilityPrenotazion(int nMax, int idRace) throws SQLException {
+        //torna vero se ha raggiunto il numero massimo di partecipanti
         String cols[] = {ID_RACE};
         Cursor cursor = database.query(DB_TABLE_PRENOTATION, cols, ID_RACE + "= " + idRace +" ;",
                                     null,null,null,null);
-        boolean ret = cursor.getCount() == nMax;  //tonra vero se ha raggiunto il numero massimo di partecipanti
+        boolean ret = cursor.getCount() == nMax;
         cursor.close();
         return ret;
 
