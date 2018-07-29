@@ -10,7 +10,7 @@ import java.util.Random;
  * Created by livio3 on 07/07/18.
  */
 
-class DateRace implements Serializable{
+public class DateRace implements Serializable{
     //basic handler date for compatibility old android version...
     private int year;
     private int month;

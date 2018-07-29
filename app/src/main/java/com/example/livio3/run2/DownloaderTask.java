@@ -1,9 +1,13 @@
 package com.example.livio3.run2;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+
+import com.example.livio3.run2.DB.DbAdapter;
 
 import java.util.concurrent.ExecutionException;
 
@@ -25,13 +29,16 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
     protected static final int JSON=96;
     protected static final int IMG=69;
     private int downloadType;
-    public DownloaderTask(String url,ListaGare ref,int downloadType){
+
+    private DbAdapter dbAdapter;
+    public DownloaderTask(String url, ListaGare ref, int downloadType){
         this.url=url;
         listaGareRef= ref;
         if(downloadType!=JSON && downloadType!=IMG){
             throw new IllegalArgumentException("invalid download type code!");
         }
         this.downloadType=downloadType;
+        this.dbAdapter = new DbAdapter(listaGareRef);
     }
 //    public DownloaderTask(ImageView imageViewReference) {
 //        this.imageViewReference = imageViewReference;
@@ -39,11 +46,25 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
 
     @Override
     protected RETURN doInBackground(Void... voids) {
-        if(downloadType==IMG)
+        if (downloadType == IMG)
             return (RETURN) downloaderIstance.downloadBitmap(url);
-        else
-            return (RETURN) downloaderIstance.downloadJson(url);
-     }
+        else {
+            String jasonString = downloaderIstance.downloadJson(url);
+            try {
+                if (jasonString != null) {
+                    dbAdapter.open();
+                    dbAdapter.addRawCache(url, jasonString); //inserisco la stringa nella tabella
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            } finally {
+                dbAdapter.close();
+                return (RETURN) jasonString;
+            }
+
+        }
+    }
 
     /*@Override
     protected void onPostExecute(Bitmap bitmap) {
