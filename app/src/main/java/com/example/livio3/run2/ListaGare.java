@@ -1,6 +1,7 @@
 package com.example.livio3.run2;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.example.livio3.run2.DB.DbAdapter;
 
 import org.json.JSONException;
 
@@ -38,6 +41,8 @@ public class ListaGare extends AppCompatActivity {
     protected static final int MAXWIDTH=100;                        //max dim for img in listview
     protected static final int MAXHEGHT=100;
     protected static ProgressBar pDialog;
+
+    protected DbAdapter dbAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +83,7 @@ public class ListaGare extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+         dbAdapter = new DbAdapter(this);
          initBufs(); //start downloaders tasks buf will be filled
     }
 
@@ -88,7 +94,21 @@ public class ListaGare extends AppCompatActivity {
                 ->IF OLD DOWNLOAD=>START DOWNLOADER TASKS AND SET DATAs..
 
          */
-
+        String jasonString = null;
+        try {
+            dbAdapter.open();
+            //jasonString = dbAdapter.takeJasonString(Downloader.gareUrlJson)
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            dbAdapter.close();
+        }
+        if(jasonString != null) {
+            setJsonRaces(jasonString);
+            return;
+        }
         //TODO CHECK CHACHED FILES
         //TODO IF TOO OLD (here continue)
         Toast.makeText(this,R.string.waitTxt,1).show();
@@ -98,12 +118,13 @@ public class ListaGare extends AppCompatActivity {
 
         //todo download prenotazioni json
         //todo serialize in chached files
+        //
         try {
             races= JsonHandler.try1();  //todo tmp set race from static json
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        downloadImages();//start downloading images
+        downloadImages(); //start downloading images
 
     }
 
