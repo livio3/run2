@@ -112,7 +112,7 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
         super.onPostExecute(result);
         //passing downloaded data to Listagare actity by setMethods
         //them will be cached as static values
-        //json will be chached localy too (TODO! PROPERTIES?)
+
         if(downloadType==IMG)
             this.listaGareRef.addImageInChache(url, (Bitmap) result);
         else

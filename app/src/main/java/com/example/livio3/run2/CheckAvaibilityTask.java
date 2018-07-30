@@ -44,7 +44,7 @@ public class CheckAvaibilityTask extends AsyncTask<Void, Void, String> {
         String out = null;
         try {
             dbAdapter.open();
-            if(dbAdapter.unavaibilityPrenotazion(this.race.getN_max_runner(), this.race.getId_race()))
+            if(dbAdapter.avaibilityPrenotazion(this.race.getN_max_runner(), this.race.getId_race()))
                 out = detailedRaceActivity.getString(R.string.reatchedMaxNumRunner);
 
             else    //if there's space enought 4 a new runner booke the race writing in db...

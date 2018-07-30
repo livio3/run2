@@ -28,6 +28,7 @@ public class ListaGare extends AppCompatActivity {
         ->scaricate(json & imaggini)
         ====>json : prenotazioni & gare, controllato timestamp in cache
                        ->se troppo vecchi riscaricate
+             =>parsato json si riscaricano le immagini
 
  */
     private String idMember;
@@ -35,14 +36,16 @@ public class ListaGare extends AppCompatActivity {
     private Button btnBack;
     private List<Race> races;
     protected static Map<String,Bitmap> imgBuffer=new HashMap<>();  //imgs cache as static map
-    //protected static Map<String,String> jsonBuf=new HashMap<>();  //imgs cache as static map
+//    protected static Map<String,String> jsonBuf=new HashMap<>();  //json cache as static map
     protected static String jsonRaces;
     protected static int MAXIMAGEBYTES= 500;
     protected static final int MAXWIDTH=100;                        //max dim for img in listview
     protected static final int MAXHEGHT=100;
-    protected static ProgressBar pDialog;
+    protected static ProgressBar progressBar;
 
     protected DbAdapter dbAdapter;
+    private int toDownload=0;            //num of   images to download for this session TODO PROGRESS BAR
+    private int downloaded=0;            // num of compleated(impossible to download or downloaded)imgs
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,8 @@ public class ListaGare extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+        progressBar=findViewById(R.id.progressBar); //start as invisible...
+
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +94,25 @@ public class ListaGare extends AppCompatActivity {
 
     private void initBufs() {
         /*
-        initialize buffer,
-            ->TODO CHECK TIMESTAMP OF BUFFERED FILES IF TOO OLDER REDOWNLOAD
+        initialize bufs with data...
+            -> CHECK TIMESTAMP OF CACHED JSON... IF OLDER THEN TODAY -> RE-DOWNLOAD
                 ->IF OLD DOWNLOAD=>START DOWNLOADER TASKS AND SET DATAs..
 
-         */
-        String jasonString = null;
+        */
+        String jsonStr=null;
         try {
             dbAdapter.open();
-            //jasonString = dbAdapter.takeJasonString(Downloader.gareUrlJson)
+            jsonStr = dbAdapter.takeJasonString(costants.urlRacesJson);
+            if(jsonStr==null){
+                //empty cache (probably first use or resetted app
+                //download
+                System.out.println("empty db cache..");
+                DownloaderTask<String> downloaderTask= new DownloaderTask<>(costants.urlRacesJson,this,DownloaderTask.JSON);
+                downloaderTask.execute(); //will be setted in cache too from downloadtask
+            }
+            else { //valid cached json string value..
+                this.setJsonRaces(jsonStr);
+            }
         }
         catch(SQLException e) {
             e.printStackTrace();
@@ -105,27 +120,7 @@ public class ListaGare extends AppCompatActivity {
         finally {
             dbAdapter.close();
         }
-        if(jasonString != null) {
-            setJsonRaces(jasonString);
-            return;
-        }
-        //TODO CHECK CHACHED FILES
-        //TODO IF TOO OLD (here continue)
-        Toast.makeText(this,R.string.waitTxt,1).show();
-        //TODO SET PROGRESS BAR TO SHOW WAITING
-        //DownloaderTask<String> downloaderTask=new DownloaderTask<>(Downloader.gareUrlJson,this,DownloaderTask.JSON);
-        //downloaderTask.execute();
-
-        //todo download prenotazioni json
-        //todo serialize in chached files
-        //
-        try {
-            races= JsonHandler.try1();  //todo tmp set race from static json
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        downloadImages(); //start downloading images
-
+        downloadImages(); //start downloading images (data will be taken by callback method from tsk
     }
 
 
@@ -135,43 +130,46 @@ public class ListaGare extends AppCompatActivity {
 
     }
     protected void setJsonRaces(String jsonStr){
-        //parsing json and setting data in listview
-        ListaGare.jsonRaces=jsonStr;
+        //callback from download task
+        //parsing json and setting data in listview;
+        ListaGare.jsonRaces=jsonStr;            //set local "runtime "cache
         JsonHandler handler = new JsonHandler(jsonStr);
-        races = handler.getRaces();
-
-
+        races = handler.getRaces();             //set parsed races from json :)
+        lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
+        //set listview with text info only(imgs setted later...)
     }
+
     protected void addImageInChache(String url,Bitmap image){
         //add a downloaded image in cache
-        imgBuffer.put(url,image);
-        //TODO COUNT DOWNLOAD...WHEN DOWNLOADED THE LAST ONE
-        RaceAdapter raceAdapter = new RaceAdapter(this, R.layout.item_race, races);
-        lvGare.setAdapter(raceAdapter);
+        if(image!=null)                 //download error case...
+            imgBuffer.put(url,image);
+        downloaded++;
+        System.out.println(downloaded+"\t"+toDownload);
+        float percentDownloadDone=((float) downloaded/(float) toDownload)*100;
+        System.out.println("downloaded "+url+"%:\t"+percentDownloadDone);
+        progressBar.setProgress(Math.round(percentDownloadDone));
+        //todo better (FASTER) ALTERNATIVES TO UPDATE IMAGES...
+        //lvGare.setAdapter(raceAdapter); //todo old always reset all imgs..
+        if(downloaded==toDownload)         //compleated all downloads
+            lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
+            //reset with imgs..(updated cache)
     }
     private void downloadImages(){
-        //TODO DOWNLOADING IMAGES AND SAVING THEM IN CACHE (STATIC BITMAT LIST)
-        //evalutate alternatives... asynctask not supposed to do long run ops...
-        for (int j = 0; j < races.size(); j++) {
-            Race race = races.get(j);
-            if (race.getUrlImage() != "") {
-//                Object o = lvGare.getAdapter().getItem(j);
-//                ImageView referenceToImageOfRace = null;        //TODO LIVIO TAKE FROM LISTVIEW
-                DownloaderTask<Bitmap> downloaderTask = new DownloaderTask<>(race.getUrlImage(),
-                        this,DownloaderTask.IMG);
-                Bitmap img = null;
-                try {
-                    //starting task to download image...
-                    //at the end will be called async addImageInCache
-                    downloaderTask.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();    //NOT POSSIBLE DOWNLOAD IMG=>SET NULL FOR THAT URL
-                }
-
-
-            }
+        /* SCHEDULE DOWNLOADING IMAGES AND SAVING THEM IN local runtime cache*/
+        //1 async task for eatch image, little images=>short op (hopefully )
+        progressBar.setVisibility(View.VISIBLE);
+        List<String> toDownloadUrls=new ArrayList<>();
+        for(int x=0;x<races.size();x++){            //getting imgs url to download...
+            String urlImg=races.get(x).getUrlImage();
+            if(imgBuffer.get(urlImg)==null) //not in img runtime cache...
+                toDownloadUrls.add(urlImg);
         }
-
+        toDownload=toDownloadUrls.size();        //set global var with num of download to schedule
+        for (int j = 0; j < toDownloadUrls.size();j++) {    //starting downloads...
+            DownloaderTask<Bitmap> downloaderTask = new DownloaderTask<>(toDownloadUrls.get(j),
+                    this,DownloaderTask.IMG); //started download in another thread
+            downloaderTask.execute(); //at the end will be called async addImageInCache
+        }
     }
 
     @Override
