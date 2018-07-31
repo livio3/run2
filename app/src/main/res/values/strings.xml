@@ -26,14 +26,18 @@
     <string name="btnBack">Back</string>
     <string name="loggout">loggout</string>
     <string name="waitTxt">getting new files from server</string>
-    <string name="infoNotAvaible">information not avaible</string>
+    <string name="infoNotAvaible">INFO NOT AVAIBLE</string>
     <string name="confirmPrenotation">ARE YOU SURE TO BOOK THIS  RACE????</string>
     <string name="prenotationImpossible">PRENOTATION NOT POSSIBLE...</string>
     <string name="confirmedTitle">Booking result...</string>
     <string name="confirmedBody">You\'ve booked succesfully this race!!!</string>
     <string name="reatchedMaxNumRunner">already reatched max num of runners</string>
     <string name="connectionError">connection error</string>
-    <string name="negativeBookResoult">not booked the race...</string>
+    <string name="negativeBookResoult">not booked the race..</string>
 
     <integer name="ZERO">0</integer>
+    <string name="infoDetailedRace">Here dettailed  Race information and race booking</string>
+    <string name="raceDetailedInfo">here detailed race info and booking</string>
+    <string name="expiredBookTerm">Book date term is expired</string>
+    <string name="alreadyBooked">already booked this race</string>
 </resources>

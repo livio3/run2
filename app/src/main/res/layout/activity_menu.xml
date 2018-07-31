@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/corsa">
+    android:background="@drawable/corsa"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/listMember"
-        android:layout_width="190dp"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="116dp"
         android:text="@string/listMember"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="bold"
+        />
 
     <Button
         android:id="@+id/nextRaces"
-        android:layout_width="190dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/nextRaces"
-        app:layout_constraintEnd_toEndOf="@+id/listMember"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/listMember"
-        app:layout_constraintTop_toBottomOf="@+id/listMember" />
+        android:textStyle="bold"
+
+        />
 
     <Button
         android:id="@+id/results"
-        android:layout_width="192dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:elevation="0dp"
         android:text="@string/results"
-        app:layout_constraintEnd_toEndOf="@+id/nextRaces"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@+id/nextRaces"
-        app:layout_constraintTop_toBottomOf="@+id/nextRaces" />
+        android:textStyle="bold"
+        />
 
     <Button
         android:id="@+id/loggout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@android:color/holo_green_light"
         android:text="@string/loggout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        android:textStyle="bold"
+        />
+</LinearLayout>

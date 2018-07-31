@@ -33,6 +33,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
      */
 
     private TextView localityTv;
+    private TextView bookingRes;
     private TextView descriptionTv;
     private TextView timeRaceTv;
     private TextView dateRaceTv;
@@ -57,6 +58,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_detailed_race);
         descriptionTv = findViewById(R.id.descriptionTv);
         timeRaceTv = findViewById(R.id.timeRaceTv);
+        bookingRes = findViewById(R.id.bookingRes);
         dateRaceTv = findViewById(R.id.dateRaceTv);
         nameRaceTv = findViewById(R.id.nameRaceTv);
         distanceTv = findViewById(R.id.distanceTv);
@@ -73,7 +75,10 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
 
 
         //TODO MAP RACE ATTRIBUTE IN TEXTVIEWS OF THIS ACTIVITY
+//        String trydist= String.format("%-51s %s",getString(R.string.distance),String.valueOf(clickedRace.getName()));
+//        distanceTv.setText(trydist);
         distanceTv.append(String.valueOf(clickedRace.getDistance()));
+//        prenExpireTv.setText(String.format("%-51s %s",getString(R.string.prenExpire),clickedRace.getPrenExpire().toStringDate()));
         maxNumRannerTv.append(String.valueOf(clickedRace.getN_max_runner()));
         dateRaceTv.append((clickedRace.getDateRace().toStringDate()));
         localityTv.append(clickedRace.getLocality());
@@ -85,7 +90,8 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         Bitmap downloadedBitmap = ListaGare.imgBuffer.get(clickedRace.getUrlImage());
         if (downloadedBitmap != null)                  //set downloaded img not scaled
             largeImg.setImageBitmap(downloadedBitmap);
-
+        else
+            largeImg.setImageDrawable(getDrawable(R.drawable.corsa));
         //todo check unside effect on resizing in ListviewAdapter :D
         distanceTv.append(String.valueOf(clickedRace.getDistance()));
         //setting listeners
@@ -120,8 +126,11 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         if (!prenotability)   //false=>disable button todo and set explination in textbox
         {
             this.btnConfirm.setClickable(false);    //disable btm confirm
-            btnConfirm.setFocusable(false);
-            btnConfirm.setText(R.string.prenotationImpossible);
+            btnConfirm.setVisibility(View.INVISIBLE);   //hide btn if race not bookable
+            if(expiredBookTerm)
+                this.bookingRes.setText(R.string.expiredBookTerm);
+            else if(alreadyBooked)
+                this.bookingRes.setText(R.string.alreadyBooked);
             //todo set textbox with reason becaouse isn't prenotable this race... see boolean with reasons of not possible book
             System.out.println("\n\nalready booked:" + alreadyBooked + "\nexpired date:" + expiredBookTerm);
         }
@@ -208,7 +217,8 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         String title;
         if (bookRes) {//confirmed booking!
             title = getString(R.string.confirmedTitle);
-
+            btnConfirm.setVisibility(View.INVISIBLE);
+            bookingRes.setText(R.string.alreadyBooked);
         } else {
             title = getString(R.string.negativeBookResoult);
 

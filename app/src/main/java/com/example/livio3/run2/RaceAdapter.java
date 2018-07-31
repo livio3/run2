@@ -54,25 +54,28 @@ public class RaceAdapter extends ArrayAdapter<Race> {
         tvLocality.setText(raceInSet.getLocality());
         tvDistance.setText(String.valueOf( races.get(position).getDistance()));
         //setting image downloaded to itemrace Imgview :)
-        ImageView imageView=convertView.findViewById(R.id.imageView);
-        Bitmap imageDownloaded=ListaGare.imgBuffer.get(raceInSet.getUrlImage());
-        if(imageDownloaded!=null)
-            imageView.setImageBitmap(imageDownloaded);
-//        else
-//            //todo set default :image not avaible WITH @STRINGS IMGNOTAVAIBLE!
-        BitmapDrawable bitmapDrawable;
+        if(ListaGare.toDownload==ListaGare.downloaded){
+            ImageView imageView=convertView.findViewById(R.id.imageView);
+            Bitmap imageDownloaded=ListaGare.imgBuffer.get(raceInSet.getUrlImage());
+            if(imageDownloaded!=null)
+                imageView.setImageBitmap(imageDownloaded);
+            else
+                imageView.setImageDrawable(context.getDrawable(R.drawable.corsa));
+                //todo set default :image not avaible WITH @STRINGS IMGNOTAVAIBLE!
 
+
+        }
         return convertView;
     }
     private Bitmap resizeBitmapForListView(Bitmap sourceBtmp){
         Bitmap outputBtmp= sourceBtmp.copy(null,true);  //TODO CHECK DOCS
         int width=sourceBtmp.getWidth();
         int height=sourceBtmp.getWidth();
-        if(width>ListaGare.MAXWIDTH)
-            outputBtmp.setWidth(ListaGare.MAXWIDTH);
-
-        if(height>ListaGare.MAXHEGHT)
-            outputBtmp.setHeight(ListaGare.MAXHEGHT);
+//        if(width>ListaGare.MAXWIDTH)
+//            outputBtmp.setWidth(ListaGare.MAXWIDTH);
+//
+//        if(height>ListaGare.MAXHEGHT)
+//            outputBtmp.setHeight(ListaGare.MAXHEGHT);
         //TODO TEST!
         return outputBtmp;
     }

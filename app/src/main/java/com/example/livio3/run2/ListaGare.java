@@ -44,8 +44,8 @@ public class ListaGare extends AppCompatActivity {
     protected static ProgressBar progressBar;
 
     protected DbAdapter dbAdapter;
-    private int toDownload=0;            //num of   images to download for this session TODO PROGRESS BAR
-    private int downloaded=0;            // num of compleated(impossible to download or downloaded)imgs
+    protected static int toDownload=0;            //num of   images to download for this session TODO PROGRESS BAR
+    protected static int downloaded=0;            // num of compleated(impossible to download or downloaded)imgs
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +111,7 @@ public class ListaGare extends AppCompatActivity {
                 downloaderTask.execute(); //will be setted in cache too from downloadtask
             }
             else { //valid cached json string value..
+                System.out.println("cached json");
                 this.setJsonRaces(jsonStr);
             }
         }
@@ -120,7 +121,6 @@ public class ListaGare extends AppCompatActivity {
         finally {
             dbAdapter.close();
         }
-        downloadImages(); //start downloading images (data will be taken by callback method from tsk
     }
 
 
@@ -128,7 +128,16 @@ public class ListaGare extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
     }
+//    @Override
+//    protected void onResume(){
+//        System.out.println("resumed"+races.size()+imgBuffer.size());
+//        toDownload=0;
+//        downloaded=0;
+//        lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
+//
+//    }
     protected void setJsonRaces(String jsonStr){
         //callback from download task
         //parsing json and setting data in listview;
@@ -136,7 +145,10 @@ public class ListaGare extends AppCompatActivity {
         JsonHandler handler = new JsonHandler(jsonStr);
         races = handler.getRaces();             //set parsed races from json :)
         lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
+        System.out.println("json setted & downloading imgs");
+        downloadImages();
         //set listview with text info only(imgs setted later...)
+
     }
 
     protected void addImageInChache(String url,Bitmap image){
@@ -148,8 +160,8 @@ public class ListaGare extends AppCompatActivity {
         float percentDownloadDone=((float) downloaded/(float) toDownload)*100;
         System.out.println("downloaded "+url+"%:\t"+percentDownloadDone);
         progressBar.setProgress(Math.round(percentDownloadDone));
-        //todo better (FASTER) ALTERNATIVES TO UPDATE IMAGES...
         //lvGare.setAdapter(raceAdapter); //todo old always reset all imgs..
+        //todo better (FASTER) ALTERNATIVES TO UPDATE IMAGES... set imgs only when all completeded
         if(downloaded==toDownload)         //compleated all downloads
             lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
             //reset with imgs..(updated cache)
@@ -164,16 +176,14 @@ public class ListaGare extends AppCompatActivity {
             if(imgBuffer.get(urlImg)==null) //not in img runtime cache...
                 toDownloadUrls.add(urlImg);
         }
+        downloaded=0;
         toDownload=toDownloadUrls.size();        //set global var with num of download to schedule
         for (int j = 0; j < toDownloadUrls.size();j++) {    //starting downloads...
             DownloaderTask<Bitmap> downloaderTask = new DownloaderTask<>(toDownloadUrls.get(j),
                     this,DownloaderTask.IMG); //started download in another thread
             downloaderTask.execute(); //at the end will be called async addImageInCache
         }
+        System.out.println("scheduled "+toDownloadUrls.size()+"download");
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 }

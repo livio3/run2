@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListaGare" />
-        <activity android:name=".DetailedRace" />
+        <activity android:name=".DetailedRace"
+            android:label="@string/infoDetailedRace"/>
         <activity android:name=".MenuActivity" />
 
     </application>

@@ -6,84 +6,122 @@
     android:layout_height="match_parent"
     tools:context="com.example.livio3.run2.DetailedRace">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:layout_marginStart="360dp"
-        android:layout_marginTop="76dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/bookingRes"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_red_light"
+        android:textColorHighlight="@android:color/holo_orange_dark"
+        android:textColorHint="@android:color/holo_orange_dark"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="289dp"
+        android:layout_height="199dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/raceImgVBig"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/localityTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/locality"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textColorHighlight="@android:color/holo_orange_dark"
+            android:textColorHint="@android:color/holo_orange_dark"
             tools:layout_editor_absoluteX="28dp"
             tools:layout_editor_absoluteY="187dp" />
 
         <TextView
             android:id="@+id/descriptionTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/description"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="216dp" />
 
         <TextView
             android:id="@+id/timeRaceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/timeRace"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="276dp" />
 
         <TextView
             android:id="@+id/dateRaceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/dateRace"
             tools:layout_editor_absoluteY="253dp" />
 
         <TextView
             android:id="@+id/nameRaceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/name"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="185dp" />
 
         <TextView
             android:id="@+id/distanceTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/distance"
             tools:layout_editor_absoluteX="84dp"
             tools:layout_editor_absoluteY="376dp" />
 
         <TextView
             android:id="@+id/prenExpireTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/prenExpire"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="295dp" />
 
         <TextView
             android:id="@+id/maxNumRunnerTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/n_max_runner"
             tools:layout_editor_absoluteY="333dp" />
 
         <TextView
             android:id="@+id/noteTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
             android:text="@string/note"
             tools:layout_editor_absoluteX="94dp"
             tools:layout_editor_absoluteY="314dp" />
@@ -91,16 +129,15 @@
 
     <ImageView
         android:id="@+id/raceImgVBig"
-        android:layout_width="315dp"
-        android:layout_height="157dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
+        android:layout_width="286dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/bookingRes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+        app:srcCompat="@android:color/holo_blue_light" />
 
     <Button
         android:id="@+id/btnConfirm"
