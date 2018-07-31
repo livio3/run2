@@ -3,6 +3,7 @@ package com.example.livio3.run2;
 import android.content.Intent;
 import android.database.SQLException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,14 +24,15 @@ import java.util.List;
 import java.util.Map;
 
 public class ListaGare extends AppCompatActivity {
-/*
-    activity che consente di visualizzare le gare disponibili
-        ->scaricate(json & imaggini)
-        ====>json : prenotazioni & gare, controllato timestamp in cache
-                       ->se troppo vecchi riscaricate
-             =>parsato json si riscaricano le immagini
+    private static final String IMGSKEY = "IMGS";
+    /*
+        activity che consente di visualizzare le gare disponibili
+            ->scaricate(json & imaggini)
+            ====>json : prenotazioni & gare, controllato timestamp in cache
+                           ->se troppo vecchi riscaricate
+                 =>parsato json si riscaricano le immagini
 
- */
+     */
     private String idMember;
     private ListView lvGare;
     private Button btnBack;
@@ -46,6 +48,7 @@ public class ListaGare extends AppCompatActivity {
     protected DbAdapter dbAdapter;
     protected static int toDownload=0;            //num of   images to download for this session TODO PROGRESS BAR
     protected static int downloaded=0;            // num of compleated(impossible to download or downloaded)imgs
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +60,8 @@ public class ListaGare extends AppCompatActivity {
             Bundle data = getIntent().getExtras();
             idMember = data.getString(LoginActivity.KEY_ID);
             System.out.println(idMember);
+
+
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -90,6 +95,12 @@ public class ListaGare extends AppCompatActivity {
         });
          dbAdapter = new DbAdapter(this);
          initBufs(); //start downloaders tasks buf will be filled
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //TODO IMAGINI E JSON(ATTRIBUTI STATICI DELLA CLASSE
     }
 
     private void initBufs() {
@@ -163,8 +174,11 @@ public class ListaGare extends AppCompatActivity {
         //lvGare.setAdapter(raceAdapter); //todo old always reset all imgs..
         //todo better (FASTER) ALTERNATIVES TO UPDATE IMAGES... set imgs only when all completeded
         if(downloaded==toDownload)         //compleated all downloads
+        {   //ENDED ALL DOWNLOAD
             lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
             //reset with imgs..(updated cache)
+            this.set
+        }
     }
     private void downloadImages(){
         /* SCHEDULE DOWNLOADING IMAGES AND SAVING THEM IN local runtime cache*/
