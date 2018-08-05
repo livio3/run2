@@ -1,8 +1,13 @@
 package com.example.livio3.run2;
 
+import android.content.Context;
+import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
+
+import com.example.livio3.run2.DB.DbAdapter;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -12,6 +17,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class Downloader {
 
@@ -20,9 +27,11 @@ public class Downloader {
         general rule: downloadproblem=> null return
          */
     private int BUFSIZE=1024 * 5;                       //buffer size for bUFFERD IS
-    //public static String gareUrlJson="https://drive.google.com/open?id=1YcYMujtYkEea12-X0TX3O42TUahF4DiR";
-    //public static String gareUrlJson="https://raw.githubusercontent.com/andysnake96/PRJBD2/master/src/DAO/Connection.java";
-    //TODO UPDATE WITH JSON REPO :)
+    private DbAdapter dbAdapter;                        //to serialize downloaded objs in db(as cache)
+
+    public Downloader(DbAdapter dbAdapter) {
+        this.dbAdapter = dbAdapter;                     //supposed to be closed..
+    }
 
     public Bitmap downloadBitmap(String url) {
         //download image and return bitmap that'll be set to imageview in listagare
@@ -47,8 +56,16 @@ public class Downloader {
 
             //bitmap = BitmapFactory.decodeStream(inputStream,null,null); //TODO NO WORK WITH GIF
             byte[] rawBytesImage= readWrap(inputStream);
+            // IMG STRING SERIALIZATION
+            String rawImgAsStr=Base64.encodeToString(rawBytesImage,Base64.DEFAULT);
+//            img bytes (group of 6 bit) encoded as a printable string :=)
+//            byte[] deserializedImgStr= Base64.decode(rawImgAsStr,Base64.DEFAULT); //deserialz
+            writeInCache(rawImgAsStr,url);          //save in cache data downloaded
             bitmap = BitmapFactory.decodeByteArray(rawBytesImage,0,rawBytesImage.length);//TODO TEST
+            if(bitmap==null){
+                System.err.println("str simple test has failed...");
             }
+        }
         catch (Exception e) {
             System.err.println("download impossible");
             if (urlConnection != null) {
@@ -74,6 +91,26 @@ public class Downloader {
 
     }
 
+    private boolean writeInCache(String data, String url) {
+        /*
+        serialize in CACHE TABLE data (as string)
+        boolean return for insert result....
+         */
+        try {
+            this.dbAdapter.open();
+            long insertRes = dbAdapter.addRawCache(url, data);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            System.err.println("serializing in cache error :(");
+            return false;
+        }
+        finally {
+            dbAdapter.close();
+        }
+        return true;
+    }
+
     public String downloadJson(String url) {
         //download Json from url
         String result=null;
@@ -97,6 +134,7 @@ public class Downloader {
 
             byte[] rawBytesStr= readWrap(inputStream);
             result=new String(rawBytesStr);
+            writeInCache(result,url);                       //save in cache downloaded data
 
         } catch (Exception e) {
             //TODO SIMPLER LOG ALTERNATIVE?

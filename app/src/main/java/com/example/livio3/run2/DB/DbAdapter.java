@@ -7,7 +7,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.livio3.run2.DateRace;
+import com.example.livio3.run2.ListaGare;
 
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Created by livio3 on 06/07/18.
  */
@@ -33,11 +36,11 @@ public class DbAdapter {
     private static final String ID_MEMBER = "idmember";
     private static final String ID_RACE = "idrace";
 
-    //CACHE TABBLE Fields
-    private static final String DB_TABLE_CACHE = "cache";
-    private static final String URL = "url";
-    private static final String JASONSTRING = "jasonString";
-    private static final String DATE = "date";
+    //CACHE TABLE Fields
+    protected static final String DB_TABLE_CACHE = "cache";
+    protected static final String URL = "url";
+    protected static final String DATA_CACHED = "data_cached";
+    protected static final String DATE = "date";
 
 
     public  DbAdapter(Context context) {
@@ -46,7 +49,8 @@ public class DbAdapter {
 
     public DbAdapter open() throws SQLException {
         dbHelper = new DatabaseHelper(context);
-        database = dbHelper.getWritableDatabase();
+        database = dbHelper.getWritableDatabase();              //TODO INDIFFERENTE SE NECESSARIA SOLO DESERIALIZZAZIONE?
+
         return this;
     }
 
@@ -141,14 +145,56 @@ public class DbAdapter {
         return database.insertOrThrow(DB_TABLE_PRENOTATION, null, values);
     }
 
-    /*
+
+    public List<List<String>> takeAllCached(){
+        /*return cached data table as string list
+            <<url,data,date>...>
+        * or null if empty cache*/
+        List<List<String>> result=new ArrayList<>();
+        String sqlGetAll="select * from "+DB_TABLE_CACHE+";";
+        Cursor cursor= database.rawQuery(sqlGetAll,null);
+        boolean hasNextRow=cursor.moveToFirst();
+        if(hasNextRow==false)
+            return null;
+        int urlCol=cursor.getColumnIndex(URL);
+        int dataCol=cursor.getColumnIndex(DATA_CACHED);
+        int dateCol=cursor.getColumnIndex(DATE);
+        int records=cursor.getCount();
+        while (hasNextRow){
+            List<String> row=new ArrayList<>();
+            row.add(cursor.getString(urlCol));
+            row.add(cursor.getString(dataCol));
+            row.add(cursor.getString(dateCol));
+            result.add(row);
+            hasNextRow = cursor.moveToNext();
+        }
+        return result;
+    }
+    public List<String> takeCacheUrls(){
+        List<String> result=new ArrayList<>();
+        String sqlGetAll="select * from "+DB_TABLE_CACHE+";";
+        Cursor cursor= database.rawQuery(sqlGetAll,null);
+        boolean hasNextRow=cursor.moveToFirst();
+        if(hasNextRow==false)
+            return null;
+        int urlCol=cursor.getColumnIndex(URL);
+//        int dataCol=cursor.getColumnIndex(DATA_CACHED);
+//        int dateCol=cursor.getColumnIndex(DATE);
+        do{
+            result.add(cursor.getString(urlCol));
+        }
+        while (cursor.moveToNext());
+        return result;
+    }
+    public String takeCachedData(String url) throws SQLException{
+        /*
     qui prendo i dti del file jason delle prenotazioni se questi dati sono stati scaricati nel giorno
     corrente, altrimenti elimino perchè le informazioni potrebbero essere non valide, funziona coe cache.
      return null se nn è presente in cache il json richiesto ( o è stato invalidato
      */
+        String cols[] = {DATA_CACHED, DATE};
+        //System.err.println(DatabaseHelper.CREATE_CACHE);
 
-    public String takeJasonString(String url) throws SQLException{
-        String cols[] = {JASONSTRING, DATE};
         Cursor cursor = database.query(DB_TABLE_CACHE, cols, URL +"= '" + url+"';", null, null, null,
                 null);
         String jason = null;
@@ -188,11 +234,17 @@ public class DbAdapter {
     private ContentValues createContentValues(String url, String jasonString) {
         ContentValues values = new ContentValues();
         values.put(URL,url);
-        values.put(JASONSTRING, jasonString);
+        values.put(DATA_CACHED, jasonString);
         values.put(DATE, DateRace.now().toString());
 
         return values;
     }
 
 
+    public void invalidAllCache() {
+        /*invalid(delete) all cache records
+            return delleted records...
+         */
+        database.delete(DB_TABLE_CACHE,null,null);
+    }
 }

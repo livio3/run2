@@ -6,17 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.livio3.run2.DB.DbAdapter;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +97,13 @@ public class ListaGare extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //TODO IMAGINI E JSON(ATTRIBUTI STATICI DELLA CLASSE
+//        try{
+//            dbAdapter.open();
+//            dbAdapter.takeAllCached();
+//        }
+//        catch (SQLException e)
+//        { e.printStackTrace();}
+        //SAVE ISTANCE=>ALL DOWNLOADED IS SERIALIZED...
     }
 
     private void initBufs() {
@@ -110,21 +113,44 @@ public class ListaGare extends AppCompatActivity {
                 ->IF OLD DOWNLOAD=>START DOWNLOADER TASKS AND SET DATAs..
 
         */
+        //getting data from cache in db
         String jsonStr=null;
         try {
             dbAdapter.open();
-            jsonStr = dbAdapter.takeJasonString(costants.urlRacesJson);
+            jsonStr = dbAdapter.takeCachedData(costants.urlRacesJson);
             if(jsonStr==null){
-                //empty cache (probably first use or resetted app
-                //download
+                //no json in cache... redownload everithing...
+
+                //TODO NO JSON=>SERIALIZED IMGS PROBABLY OLD(IF EXIST)
+                //TODO CLEAN DB cache...
+                dbAdapter.invalidAllCache();
+                //setJson need imgs already taken
                 System.out.println("empty db cache..");
                 DownloaderTask<String> downloaderTask= new DownloaderTask<>(costants.urlRacesJson,this,DownloaderTask.JSON);
                 downloaderTask.execute(); //will be setted in cache too from downloadtask
             }
-            else { //valid cached json string value..
+            else { //valid cached json string value
                 System.out.println("cached json");
+                //attemping to get imgs too....
+                //taking urls of cached data...
+                List<String> cacheUrls=dbAdapter.takeCacheUrls();
+                //getting imgs from cache...
+                for(int s=0;s<cacheUrls.size();s++) {
+                    String url = cacheUrls.get(s);
+                    //ignoring jsons...at this step already taken.
+                    if (url.equals(costants.urlRacesJson))
+                        continue;   //already taken before...
+                    String cachedData = dbAdapter.takeCachedData(url);
+                    if (cachedData != null) {    //valid img in cache...
+                        byte[] deserializedData = Base64.decode(cachedData, Base64.DEFAULT);
+                        Bitmap cachedImg = BitmapFactory.decodeByteArray(deserializedData, 0, deserializedData.length);
+                        imgBuffer.put(url, cachedImg);
+                    }
+                }
+                System.out.println("correctly cached imgs:"+imgBuffer.size());
                 this.setJsonRaces(jsonStr);
-            }
+                }
+
         }
         catch(SQLException e) {
             e.printStackTrace();
@@ -157,7 +183,7 @@ public class ListaGare extends AppCompatActivity {
         races = handler.getRaces();             //set parsed races from json :)
         lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
         System.out.println("json setted & downloading imgs");
-        downloadImages();
+        downloadImages(); //download imgs not (actually valid  ) in cache
         //set listview with text info only(imgs setted later...)
 
     }
@@ -177,21 +203,28 @@ public class ListaGare extends AppCompatActivity {
         {   //ENDED ALL DOWNLOAD
             lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));
             //reset with imgs..(updated cache)
-            this.set
+
         }
+
     }
     private void downloadImages(){
-        /* SCHEDULE DOWNLOADING IMAGES AND SAVING THEM IN local runtime cache*/
+        /* try take img in serialized cache in db...
+        SCHEDULE DOWNLOADING REMAINING IMAGES AND SAVING THEM IN local runtime cache*/
         //1 async task for eatch image, little images=>short op (hopefully )
-        progressBar.setVisibility(View.VISIBLE);
+
+
+
         List<String> toDownloadUrls=new ArrayList<>();
-        for(int x=0;x<races.size();x++){            //getting imgs url to download...
+        //getting imgs url to download=>not cached imgs...
+        for(int x=0;x<races.size();x++){
             String urlImg=races.get(x).getUrlImage();
-            if(imgBuffer.get(urlImg)==null) //not in img runtime cache...
+            if(urlImg!=null &&  imgBuffer.get(urlImg)==null) //not in imgs cache...
                 toDownloadUrls.add(urlImg);
         }
         downloaded=0;
         toDownload=toDownloadUrls.size();        //set global var with num of download to schedule
+        if(toDownload>0)    //set prss bar only if something has to be downloaded
+            progressBar.setVisibility(View.VISIBLE);
         for (int j = 0; j < toDownloadUrls.size();j++) {    //starting downloads...
             DownloaderTask<Bitmap> downloaderTask = new DownloaderTask<>(toDownloadUrls.get(j),
                     this,DownloaderTask.IMG); //started download in another thread

@@ -23,7 +23,7 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
     public static String photo= "https://drive.google.com/open?id=10pafqpuBt9lWTbLAf2lMbZwqE0hpQQZB";
 
     private ImageView imageViewReference;           //TODO OBSOLETE
-    private Downloader downloaderIstance=new Downloader();
+    private Downloader downloaderIstance;
     private String url;                                 //target url to download
     private ListaGare listaGareRef;
     protected static final int JSON=96;
@@ -39,6 +39,7 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
         }
         this.downloadType=downloadType;
         this.dbAdapter = new DbAdapter(listaGareRef);
+        this.downloaderIstance=new Downloader(dbAdapter);
     }
 //    public DownloaderTask(ImageView imageViewReference) {
 //        this.imageViewReference = imageViewReference;
@@ -46,25 +47,16 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
 
     @Override
     protected RETURN doInBackground(Void... voids) {
-        if (downloadType == IMG)
+        //download data from url, will be cached(serialized) in db cache table...
+        if (downloadType == IMG) {
             return (RETURN) downloaderIstance.downloadBitmap(url);
+        }
         else {
-            String jasonString = downloaderIstance.downloadJson(url);
-            try {
-                if (jasonString != null) {
-                    dbAdapter.open();
-                    dbAdapter.addRawCache(url, jasonString); //inserisco la stringa nella tabella
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-
-            } finally {
-                dbAdapter.close();
-                return (RETURN) jasonString;
+            return (RETURN) downloaderIstance.downloadJson(url);
             }
 
         }
-    }
+
 
     /*@Override
     protected void onPostExecute(Bitmap bitmap) {
