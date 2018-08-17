@@ -20,9 +20,9 @@
     <string name="distance">Distance: -</string>
     <string name="note">Note: -</string>
     <string name="timeRace">Time of race: -</string>
-    <string name="listMember">Elenco Soci</string>
-    <string name="results">Risultati</string>
-    <string name="nextRaces">Prossime gare</string>
+    <string name="listMember">Member list</string>
+    <string name="results">Results</string>
+    <string name="nextRaces">Next Races</string>
     <string name="btnBack">Back</string>
     <string name="loggout">loggout</string>
     <string name="waitTxt">getting new files from server</string>

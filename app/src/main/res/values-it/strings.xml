@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">run2</string>
+    <string name="action_sign_in" >Accedi</string>
+    <string name="error_incorrect_password" >La password o l\'username sono errati</string>
+    <string name="error_field_required">Il campo è richiesto</string>
+    <string name="btnListaGare">Indietro</string>
+    <string name="confirm">Conferma</string>
+    <string name="name">Nome: -</string>
+    <string name="description">Descrizione: -</string>
+    <string name="locality">Località: -</string>
+    <string name="dateRace">Data della gara: -</string>
+    <string name="prenExpire">Scadenza Prenotazione: -</string>
+    <string name="n_max_runner">Max numero di partecipanti: -</string>
+    <string name="distance">Distanza: -</string>
+    <string name="note">Nota: -</string>
+    <string name="timeRace">Tempo di gara</string>
+    <string name="listMember">Elenco soci</string>
+    <string name="results">Risultati</string>
+    <string name="nextRaces">Prossime gare</string>
+    <string name="btnBack">Indietro</string>
+    <string name="loggout">Disconetti</string>
+    <string name="waitTxt">Prendendo un nuovi file dal server</string>
+    <string name="infoNotAvaible">INFO NON DISPONIBILI</string>
+    <string name="confirmPrenotation">SEI SICURO DI PRENOTARTI PER QUESTA GARA????</string>
+    <string name="prenotationImpossible">PRENOTAZIONE NON POSSSIBILE...</string>
+    <string name="confirmedTitle">risposta prenotazione...</string>
+    <string name="confirmedBody">Ti sei prenotato con successo!!!</string>
+    <string name="reatchedMaxNumRunner">gara con già numero massimo di partecipanti</string>
+    <string name="connectionError">errore di connessione</string>
+    <string name="negativeBookResoult">gara non prenotata</string>
+    <string name="infoDetailedRace">Qui i dettagli della gara e della prenotazione</string>
+    <string name="raceDetailedInfo">qui dettagli della gara e della prenotazione</string>
+    <string name="expiredBookTerm">termini scaduti per la prenotazione</string>
+    <string name="alreadyBooked">Già prenotato per questa gara</string>
+</resources>

@@ -8,11 +8,11 @@
 
     <Button
         android:id="@+id/listMember"
-        android:layout_width="190dp"
+        android:layout_width="192dp"
         android:layout_height="55dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="56dp"
         android:text="@string/listMember"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,10 +20,9 @@
 
     <Button
         android:id="@+id/nextRaces"
-        android:layout_width="190dp"
+        android:layout_width="192dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp"
         android:text="@string/nextRaces"
         app:layout_constraintEnd_toEndOf="@+id/listMember"
         app:layout_constraintHorizontal_bias="0.0"
@@ -36,12 +35,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp"
         android:elevation="0dp"
         android:text="@string/results"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/nextRaces"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="@+id/nextRaces"
         app:layout_constraintTop_toBottomOf="@+id/nextRaces"
         app:layout_constraintVertical_bias="0.0" />
@@ -52,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@android:color/holo_red_dark"
         android:text="@string/loggout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
