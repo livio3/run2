@@ -5,8 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by livio3 on 06/07/18.
- */
+  this class takes care of opening the database
+  if it exists, creating it if it does not, and upgrading it as necessary
+ **/
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -23,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, NAMEDB, null, DATABASE_VERSION);
     }
 
+
+    // create the table if don't exist.
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_DB_USER);
@@ -31,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
+    // for upgrade delete all the table and call onCreate.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS usersystem");

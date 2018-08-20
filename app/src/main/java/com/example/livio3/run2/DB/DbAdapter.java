@@ -49,7 +49,8 @@ public class DbAdapter {
 
     public DbAdapter open() throws SQLException {
         dbHelper = new DatabaseHelper(context);
-        database = dbHelper.getWritableDatabase();              //TODO INDIFFERENTE SE NECESSARIA SOLO DESERIALIZZAZIONE?
+        //Create and/or open a database that will be used to read and write.
+        database = dbHelper.getWritableDatabase();
 
         return this;
     }
@@ -58,6 +59,11 @@ public class DbAdapter {
         dbHelper.close();
     }
 
+
+    /*
+        the methods createContentValues are used to create a ContentValues. This class is used to
+        store a set of values that the database can process
+    */
     private ContentValues createContentValues(String name, String surname, String username, String password ) {
         ContentValues values = new ContentValues();
         values.put(NAME,name);
@@ -79,8 +85,8 @@ public class DbAdapter {
     }
 
     /*
-    recupero un socio in caso l'username e la password siano corretti
-     */
+        retray a member if the username and password are right.
+   */
 
     public Cursor retrayRunner(String username, String password) throws Exception {
         String cols[] = {ID_RUNNER, NAME, SURNAME, USERNAME, PASSWORD, SEX, BIRTH_DATE};
@@ -91,8 +97,8 @@ public class DbAdapter {
     }
 
    /*
-   utilizzato per l'AutoCompleteTextView, recupero tutti gli usernames presenti nel sistema
-    */
+   for l'AutoCompleteTextView in the loginActivity, retray all usernames of the system.
+   */
 
     public Cursor retrayAllUsernameRunner() throws SQLException {
         String cols[] = {USERNAME};
@@ -103,27 +109,28 @@ public class DbAdapter {
     }
 
     /*
-    controllo se una certa gara non ha finito i posti disponibili per l'iscrizione
+    check if the race did not reached the maximum number of participants
      */
     public boolean avaibilityPrenotazion(int nMax, int idRace) throws SQLException {
         String cols[] = {ID_RACE};
         Cursor cursor = database.query(DB_TABLE_PRENOTATION, cols, ID_RACE + "= " + idRace +" ;",
                 null,null,null,null);
-        boolean ret = cursor.getCount() == nMax;  //tonra vero se ha raggiunto il numero massimo di partecipanti
+        //return true if the race  reached the maximum number of participants
+        boolean ret = cursor.getCount() == nMax;  // count the number of rows then the number of subscribers.
         cursor.close();
         return ret;
 
     }
 
     /*
-    questo metodo serve per controllare il caso di un socio che è gia prenotato per una determinata gara
+    check if the runner has already booked this race
      */
     public boolean checkDoublePrenotation(int idMember, int idRace) {
         String cols[] = {ID_RACE};
         Cursor cursor = database.query(DB_TABLE_PRENOTATION, cols, ID_RACE + "= " + idRace +
                         " AND " + ID_MEMBER +"="+idMember+";",
                 null,null,null,null);
-        boolean ret = cursor.getCount() == 1;  //tonra vero se già è prenotato
+        boolean ret = cursor.getCount() == 1;  //return true if he has already booked.
         cursor.close();
         return ret;
     }
@@ -188,9 +195,9 @@ public class DbAdapter {
     }
     public String takeCachedData(String url) throws SQLException{
         /*
-    qui prendo i dti del file jason delle prenotazioni se questi dati sono stati scaricati nel giorno
-    corrente, altrimenti elimino perchè le informazioni potrebbero essere non valide, funziona coe cache.
-     return null se nn è presente in cache il json richiesto ( o è stato invalidato
+    I take the data of the jason file of the bookings if they have been downloaded in the day
+    current, otherwise I delete because the information may be invalid. It works as a cache.
+    return null if  the requested json is not in the cache, or has been invalidated
      */
         String cols[] = {DATA_CACHED, DATE};
         //System.err.println(DatabaseHelper.CREATE_CACHE);
@@ -204,12 +211,12 @@ public class DbAdapter {
         String date = cursor.getString(1);
         DateRace dateTimestap = new DateRace(date);
         DateRace dateNow = DateRace.now();
-        //se il file è stato scaricato nello stesso giorno non lo riscarico.
+        //if the file have been downloaded in the day current, it will not be downloaded again.
         if(dateTimestap.getYear() == dateNow.getYear() && dateTimestap.getDay() == dateNow.getDay()
                 && dateTimestap.getMonth() == dateNow.getMonth())
             jason =cursor.getString(0);
         else
-            deleteJason(url); //altrimenti lo elimino perchè potrebbe nn essere più valido
+            deleteJason(url); //otherwise it will delete because the information may be invalid.
         cursor.close();
         return jason;
     }
@@ -222,7 +229,7 @@ public class DbAdapter {
 
 
     /*
-    inserisco i dati del file jason scaricato con la data corrente.
+    add information of the file dowlanded
      */
     public long addRawCache(String url, String jasonString) {
         ContentValues values = createContentValues(url, jasonString);

@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class LoginActivity extends AppCompatActivity  {
 
@@ -42,13 +42,14 @@ public class LoginActivity extends AppCompatActivity  {
     private View mLoginFormView;
     private Cursor mCursor;
     private List<String> usernames;
+
     //references to DB adampter for authentication on db
     private DbAdapter dbAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Runner runner = new Runner();
+
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
 
@@ -99,6 +100,10 @@ public class LoginActivity extends AppCompatActivity  {
 
     }
 
+    /*
+    this method make a query on db. it retray all username for AutoCompleteTextView
+         */
+
     private List<String> takeUsernames() {
         Cursor uCursor = null;
         List<String> usernames = new ArrayList<>();
@@ -121,10 +126,10 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
+    /*
+      Attempts to sign in or register the account specified by the login form.
+      If there are form errors (invalid username, missing fields, etc.), the
+      errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
         if (mAuthTask != null) {
@@ -172,8 +177,8 @@ public class LoginActivity extends AppCompatActivity  {
 
 
 
-    /**
-     * Shows the progress UI and hides the login form.
+    /*
+      Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
@@ -214,9 +219,9 @@ public class LoginActivity extends AppCompatActivity  {
 
 
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+    /*
+      Represents an asynchronous login task used to authenticate
+      the user. it queries the db to check the existence of the inserted fields.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -244,6 +249,7 @@ public class LoginActivity extends AppCompatActivity  {
 
                 if (mCursor.moveToNext()) {
                     String name = mCursor.getString(2);
+                    // the id member must be take for pass to other activity
                     idMember = String.valueOf( mCursor.getInt(0));
                     if (mCursor.moveToNext()) {
                         //String name = mCursor.getString(2);
@@ -276,11 +282,11 @@ public class LoginActivity extends AppCompatActivity  {
                 SimpleDateFormat simpleDateFormat= new SimpleDateFormat();
                 simpleDateFormat.format(new Date());
                 Date date= new Date();
-                intent.putExtra(KEY_ID, idMember);  //si deve passare l'informazione sul id del socio
+                intent.putExtra(KEY_ID, idMember);  // the idMember must be passed to the other activity
                 startActivity(intent);
 
                 finish();
-                //TODO passare all'altra activity
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

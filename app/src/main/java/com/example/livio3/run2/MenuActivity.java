@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by livio3 on 23/07/18.
+  The user have two options: display the next races or log out.
  */
 
 public class MenuActivity extends AppCompatActivity {
@@ -22,13 +22,14 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         nextRaces = findViewById(R.id.nextRaces);
+        //if the user pushes the button, he
         nextRaces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle data = getIntent().getExtras();
                 String idMember = data.getString(LoginActivity.KEY_ID);
                 Intent intent = new Intent(MenuActivity.this, ListaGare.class);
-                intent.putExtra(LoginActivity.KEY_ID, idMember); //si deve passare l'id del socio
+                intent.putExtra(LoginActivity.KEY_ID, idMember); //idMember must be passed
                 startActivity(intent);
             }
         });
