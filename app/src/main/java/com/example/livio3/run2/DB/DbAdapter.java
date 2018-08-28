@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.livio3.run2.DateRace;
-import com.example.livio3.run2.ListaGare;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -30,6 +30,7 @@ public class Downloader {
     private DbAdapter dbAdapter;                        //to serialize downloaded objs in db(as cache)
 
     public Downloader(DbAdapter dbAdapter) {
+
         this.dbAdapter = dbAdapter;                     //supposed to be closed..
     }
 

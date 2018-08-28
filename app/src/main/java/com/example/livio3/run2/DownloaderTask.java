@@ -1,15 +1,10 @@
 package com.example.livio3.run2;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import com.example.livio3.run2.DB.DbAdapter;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by BBOSS on 07/07/2018.
@@ -25,20 +20,20 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
     private ImageView imageViewReference;           //TODO OBSOLETE
     private Downloader downloaderIstance;
     private String url;                                 //target url to download
-    private ListaGare listaGareRef;
+    private ListRace listRaceRef;
     protected static final int JSON=96;
     protected static final int IMG=69;
     private int downloadType;
 
     private DbAdapter dbAdapter;
-    public DownloaderTask(String url, ListaGare ref, int downloadType){
+    public DownloaderTask(String url, ListRace ref, int downloadType){
         this.url=url;
-        listaGareRef= ref;
+        listRaceRef = ref;
         if(downloadType!=JSON && downloadType!=IMG){
             throw new IllegalArgumentException("invalid download type code!");
         }
         this.downloadType=downloadType;
-        this.dbAdapter = new DbAdapter(listaGareRef);
+        this.dbAdapter = new DbAdapter(listRaceRef);
         this.downloaderIstance=new Downloader(dbAdapter);
     }
 //    public DownloaderTask(ImageView imageViewReference) {
@@ -48,6 +43,9 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
     @Override
     protected RETURN doInBackground(Void... voids) {
         //download data from url, will be cached(serialized) in db cache table...
+
+        //test if there's connection
+
         if (downloadType == IMG) {
             return (RETURN) downloaderIstance.downloadBitmap(url);
         }
@@ -106,9 +104,9 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
         //them will be cached as static values
 
         if(downloadType==IMG)
-            this.listaGareRef.addImageInChache(url, (Bitmap) result);
+            this.listRaceRef.addImageInChache(url, (Bitmap) result);
         else
-            this.listaGareRef.setJsonRaces((String) result);
+            this.listRaceRef.setJsonRaces((String) result);
     }
 
 

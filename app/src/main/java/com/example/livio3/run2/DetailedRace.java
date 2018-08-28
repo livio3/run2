@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.livio3.run2.DB.DbAdapter;
-
-import java.util.concurrent.ExecutionException;
 
 public class DetailedRace extends AppCompatActivity implements View.OnClickListener {
     /*
@@ -41,6 +40,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
     private TextView distanceTv;
     private TextView prenExpireTv;
     private TextView maxNumRannerTv;
+    private TextView urlSite;
     private TextView noteTv;
     private ImageView largeImg;
     private Button btnBack;
@@ -63,6 +63,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         nameRaceTv = findViewById(R.id.nameRaceTv);
         distanceTv = findViewById(R.id.distanceTv);
         prenExpireTv = findViewById(R.id.prenExpireTv);
+        urlSite= findViewById(R.id.urlSite);
         maxNumRannerTv = findViewById(R.id.maxNumRunnerTv);
         noteTv = findViewById(R.id.noteTv);
         largeImg = findViewById(R.id.raceImgVBig);
@@ -74,26 +75,42 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         clickedRace = myParcelable.getObject();
 
 
-        //TODO MAP RACE ATTRIBUTE IN TEXTVIEWS OF THIS ACTIVITY
-//        String trydist= String.format("%-51s %s",getString(R.string.distance),String.valueOf(clickedRace.getName()));
-//        distanceTv.setText(trydist);
-        distanceTv.append(String.valueOf(clickedRace.getDistance()));
-//        prenExpireTv.setText(String.format("%-51s %s",getString(R.string.prenExpire),clickedRace.getPrenExpire().toStringDate()));
-        maxNumRannerTv.append(String.valueOf(clickedRace.getN_max_runner()));
-        dateRaceTv.append((clickedRace.getDateRace().toStringDate()));
-        localityTv.append(clickedRace.getLocality());
-        descriptionTv.append(clickedRace.getDescription());
-        timeRaceTv.append(clickedRace.getDateRace().toStringTime());
-        nameRaceTv.append(clickedRace.getName());
-        noteTv.append(clickedRace.getNote());
-        prenExpireTv.append(clickedRace.getPrenExpire().toStringDate());
-        Bitmap downloadedBitmap = ListaGare.imgBuffer.get(clickedRace.getUrlImage());
+
+        distanceTv.setText(String.valueOf(clickedRace.getDistance()));
+        prenExpireTv.setText(clickedRace.getPrenExpire().toString());
+        maxNumRannerTv.setText(String.valueOf(clickedRace.getN_max_runner()));
+        dateRaceTv.setText((clickedRace.getDateRace().toStringDate()));
+        localityTv.setText(clickedRace.getLocality());
+        descriptionTv.setText(clickedRace.getDescription());
+        timeRaceTv.setText(clickedRace.getDateRace().toStringTime());
+        nameRaceTv.setText(clickedRace.getName());
+        noteTv.setText(clickedRace.getNote());
+        urlSite.setText(clickedRace.getUrlRace());
+        localityTv.setOnClickListener(new View.OnClickListener() {
+            //on click open maps
+            @Override
+            public void onClick(View view) {
+                // Create a Uri from an intent string. Use the result to create an Intent.
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q="+clickedRace.getLocality());
+
+                // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                // Make the Intent explicit by setting the Google Maps package
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+                // Attempt to start an activity that can handle the Intent
+                startActivity(mapIntent);
+            }
+        });
+        Bitmap downloadedBitmap = ListRace.imgBuffer.get(clickedRace.getUrlImage());
+
         if (downloadedBitmap != null)                  //set downloaded img not scaled
             largeImg.setImageBitmap(downloadedBitmap);
         else
             largeImg.setImageDrawable(getDrawable(R.drawable.corsa));
+        largeImg.setScaleType(ImageView.ScaleType.FIT_XY);
         //todo check unside effect on resizing in ListviewAdapter :D
-        distanceTv.append(String.valueOf(clickedRace.getDistance()));
+        distanceTv.setText(String.valueOf(clickedRace.getDistance()));
         //setting listeners
         btnBack.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
@@ -141,7 +158,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back2Races:
-                Intent intent = new Intent(this, ListaGare.class);
+                Intent intent = new Intent(this, ListRace.class);
                 intent.putExtra(LoginActivity.KEY_ID, idMember);
                 startActivity(intent);
                 break;

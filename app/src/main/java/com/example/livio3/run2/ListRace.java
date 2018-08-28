@@ -1,9 +1,13 @@
 package com.example.livio3.run2;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -20,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ListaGare extends AppCompatActivity {
+public class ListRace extends AppCompatActivity {
     private static final String IMGSKEY = "IMGS";
     /*
         activity che consente di visualizzare le gare disponibili
@@ -69,7 +73,7 @@ public class ListaGare extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListaGare.this, MenuActivity.class);
+                Intent intent = new Intent(ListRace.this, MenuActivity.class);
                 intent.putExtra(LoginActivity.KEY_ID, idMember);
                 startActivity(intent);
             }
@@ -82,7 +86,7 @@ public class ListaGare extends AppCompatActivity {
                 Race raceClicked;
                 raceClicked = races.get(position);
 
-                Intent intent = new Intent(ListaGare.this, DetailedRace.class);
+                Intent intent = new Intent(ListRace.this, DetailedRace.class);
                 intent.putExtra(LoginActivity.KEY_ID, idMember);
                 MyParcelable myParcelable = new MyParcelable();
                 myParcelable.setObject(raceClicked);
@@ -114,16 +118,44 @@ public class ListaGare extends AppCompatActivity {
 
         */
         //getting data from cache in db
+
+
+
+
         String jsonStr=null;
         try {
             dbAdapter.open();
             jsonStr = dbAdapter.takeCachedData(costants.urlRacesJson);
             if(jsonStr==null){
                 //no json in cache... redownload everithing...
-
                 //TODO NO JSON=>SERIALIZED IMGS PROBABLY OLD(IF EXIST)
                 //TODO CLEAN DB cache...
                 dbAdapter.invalidAllCache();
+
+                //first check network connection
+
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                if(cm.getActiveNetworkInfo() == null){
+                    AlertDialog.Builder dialog =
+                            new AlertDialog.Builder(this);
+                    dialog.setTitle(getString(R.string.connectionError));
+                    String body = (getString(R.string.fixConnection));
+                    dialog.setCancelable(false);
+                    dialog.setMessage(body);
+
+                    dialog.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //ON CONNECTION ERROR WILL BE RECALLED INITALIZATION
+                            //HOPEFULLY USER WILL FIX THE PROBLEM OR CLOSE...
+                            initBufs();
+                        }
+                    });
+                    dialog.show();
+
+                }
+
+
                 //setJson need imgs already taken
                 System.out.println("empty db cache..");
                 DownloaderTask<String> downloaderTask= new DownloaderTask<>(costants.urlRacesJson,this,DownloaderTask.JSON);
@@ -178,7 +210,7 @@ public class ListaGare extends AppCompatActivity {
     protected void setJsonRaces(String jsonStr){
         //callback from download task
         //parsing json and setting data in listview;
-        ListaGare.jsonRaces=jsonStr;            //set local "runtime "cache
+        ListRace.jsonRaces=jsonStr;            //set local "runtime "cache
         JsonHandler handler = new JsonHandler(jsonStr);
         races = handler.getRaces();             //set parsed races from json :)
         lvGare.setAdapter(new RaceAdapter(this, R.layout.item_race, races));

@@ -51,6 +51,7 @@ public class Race implements Serializable {
         //constructor to generate Race obj from List keyValue from json parsing
         //Lists have to match order of related values
         assert (keys.size()==values.size());
+        this.urlRace="";
 
         for(int i=0;i<keys.size();i++){
             String key=keys.get(i);

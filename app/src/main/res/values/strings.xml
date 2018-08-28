@@ -11,15 +11,15 @@
 
     <string name="btnListaGare">Back</string>
     <string name="confirm">confirm</string>
-    <string name="name">Name: -</string>
-    <string name="description">Description: -</string>
-    <string name="locality">Locality: -</string>
-    <string name="dateRace">Date of race: -</string>
-    <string name="prenExpire">Prenotation Expire: -</string>
-    <string name="n_max_runner">Max number of runners: -</string>
-    <string name="distance">Distance: -</string>
-    <string name="note">Note: -</string>
-    <string name="timeRace">Time of race: -</string>
+    <string name="name">Name:</string>
+    <string name="description">Description:</string>
+    <string name="locality">Locality:</string>
+    <string name="dateRace">Date of race:</string>
+    <string name="prenExpire">Prenotation Expire:</string>
+    <string name="n_max_runner">Max N of runners:</string>
+    <string name="distance">Distance:</string>
+    <string name="note">Note:</string>
+    <string name="timeRace">Time of race:</string>
     <string name="listMember">Member list</string>
     <string name="results">Results</string>
     <string name="nextRaces">Next Races</string>
@@ -34,10 +34,15 @@
     <string name="reatchedMaxNumRunner">already reatched max num of runners</string>
     <string name="connectionError">connection error</string>
     <string name="negativeBookResoult">not booked the race..</string>
+    <string name="urlSite">url</string>
 
     <integer name="ZERO">0</integer>
-    <string name="infoDetailedRace">Here dettailed  Race information and race booking</string>
+    <string name="infoDetailedRace">Race Information</string>
     <string name="raceDetailedInfo">here detailed race info and booking</string>
     <string name="expiredBookTerm">Book date term is expired</string>
     <string name="alreadyBooked">already booked this race</string>
+    <string name="fixConnection">fix internet connection before continue</string>
+    <string name="loginLabel">loggin</string>
+    <string name="listaGareLabel">RACES</string>
+    <string name="menuLabel">MENU</string>
 </resources>

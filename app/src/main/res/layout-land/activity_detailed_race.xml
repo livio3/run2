@@ -4,140 +4,165 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.livio3.run2.DetailedRace">
+    tools:context="com.example.livio3.run2.DetailedRace"
+    tools:layout_editor_absoluteY="73dp">
 
     <TextView
         android:id="@+id/bookingRes"
-        android:layout_width="match_parent"
-        android:layout_height="22dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="27dp"
         android:textAlignment="textStart"
         android:textAllCaps="true"
         android:textColor="@android:color/holo_red_light"
         android:textColorHighlight="@android:color/holo_orange_dark"
         android:textColorHint="@android:color/holo_orange_dark"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnConfirm"
+        app:layout_constraintStart_toEndOf="@+id/back2Races"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="289dp"
-        android:layout_height="199dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="188dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/raceImgVBig"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/localityTv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/locality"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textColorHighlight="@android:color/holo_orange_dark"
-            android:textColorHint="@android:color/holo_orange_dark"
-            tools:layout_editor_absoluteX="28dp"
-            tools:layout_editor_absoluteY="187dp" />
-
-        <TextView
-            android:id="@+id/descriptionTv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/description"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="216dp" />
-
-        <TextView
-            android:id="@+id/timeRaceTv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/timeRace"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="276dp" />
-
-        <TextView
-            android:id="@+id/dateRaceTv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/dateRace"
-            tools:layout_editor_absoluteY="253dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/nameRaceTv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="19dp"
             android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/name"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="185dp" />
 
         <TextView
+            android:id="@+id/localityTv"
+            android:layout_width="180dp"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textColorHighlight="@android:color/holo_orange_dark"
+            android:textColorHint="@android:color/holo_orange_dark"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="187dp" />
+
+        <TextView
             android:id="@+id/distanceTv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="19dp"
             android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/distance"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
             tools:layout_editor_absoluteX="84dp"
             tools:layout_editor_absoluteY="376dp" />
 
         <TextView
+            android:id="@+id/dateRaceTv"
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            tools:layout_editor_absoluteY="253dp" />
+
+        <TextView
             android:id="@+id/prenExpireTv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="19dp"
             android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/prenExpire"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:typeface="sans"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="295dp" />
 
         <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/timeRaceTv"
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="276dp" />
+
+        <TextView
             android:id="@+id/maxNumRunnerTv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="19dp"
             android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/n_max_runner"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:typeface="sans"
             tools:layout_editor_absoluteY="333dp" />
+
+        <TextView
+            android:id="@+id/descriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="216dp" />
 
         <TextView
             android:id="@+id/noteTv"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="19dp"
             android:layout_weight="1"
-            android:baselineAligned="false"
-            android:text="@string/note"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="11sp"
+            android:typeface="sans"
             tools:layout_editor_absoluteX="94dp"
             tools:layout_editor_absoluteY="314dp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/raceImgVBig"
-        android:layout_width="286dp"
-        android:layout_height="0dp"
+        android:layout_width="224dp"
+        android:layout_height="221dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/bookingRes"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_blue_light" />
+        app:layout_constraintVertical_bias="0.109"
+        app:srcCompat="@color/colorPrimary" />
 
     <Button
         android:id="@+id/btnConfirm"
@@ -151,12 +176,136 @@
 
     <Button
         android:id="@+id/back2Races"
-        android:layout_width="87dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/btnListaGare"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="146dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="9dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/raceImgVBig"
+        app:layout_constraintStart_toEndOf="@+id/raceImgVBig"
+        app:layout_constraintTop_toTopOf="@+id/raceImgVBig">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/name"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="185dp" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/locality"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textColorHighlight="@android:color/holo_orange_dark"
+            android:textColorHint="@android:color/holo_orange_dark"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="187dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/distance"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="84dp"
+            tools:layout_editor_absoluteY="376dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/dateRace"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            tools:layout_editor_absoluteY="253dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/prenExpire"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="295dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/urlSite" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/timeRace"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="276dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/n_max_runner"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteY="333dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/description"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="216dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/note"
+            android:textSize="11sp"
+            android:typeface="sans"
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="314dp" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

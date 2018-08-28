@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle data = getIntent().getExtras();
                 String idMember = data.getString(LoginActivity.KEY_ID);
-                Intent intent = new Intent(MenuActivity.this, ListaGare.class);
+                Intent intent = new Intent(MenuActivity.this, ListRace.class);
                 intent.putExtra(LoginActivity.KEY_ID, idMember); //idMember must be passed
                 startActivity(intent);
             }

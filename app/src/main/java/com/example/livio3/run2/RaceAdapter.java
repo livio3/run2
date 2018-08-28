@@ -2,9 +2,6 @@ package com.example.livio3.run2;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -25,6 +22,7 @@ public class RaceAdapter extends ArrayAdapter<Race> {
     private Context context;
     private int resource;
     private List<Race> races;
+    private static int colorIndex=0;
     public RaceAdapter(@NonNull Context context, int resource, @NonNull List<Race> races) {
         super(context, resource, races);
         this.context = context;
@@ -44,6 +42,11 @@ public class RaceAdapter extends ArrayAdapter<Race> {
 
             convertView = mInflater.inflate(resource, null);
         }
+        if((position)%2==0)
+            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.holo_orange_light));
+        else
+            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.holo_red_dark));
+        convertView.getBackground().setAlpha(111);
         Race raceInSet=races.get(position);
         TextView tvName = convertView.findViewById(R.id.tvName);
         TextView tvDate = convertView.findViewById(R.id.tvData);
@@ -53,12 +56,16 @@ public class RaceAdapter extends ArrayAdapter<Race> {
         tvDate.setText(raceInSet.getDateRace().toString());
         tvLocality.setText(raceInSet.getLocality());
         tvDistance.setText(String.valueOf( races.get(position).getDistance()));
+        tvDistance.append("\tkm");
         //setting image downloaded to itemrace Imgview :)
-        if(ListaGare.toDownload==ListaGare.downloaded){
+        if(ListRace.toDownload== ListRace.downloaded){
             ImageView imageView=convertView.findViewById(R.id.imageView);
-            Bitmap imageDownloaded=ListaGare.imgBuffer.get(raceInSet.getUrlImage());
-            if(imageDownloaded!=null)
+            Bitmap imageDownloaded= ListRace.imgBuffer.get(raceInSet.getUrlImage());
+            if(imageDownloaded!=null) {
                 imageView.setImageBitmap(imageDownloaded);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY); //LET IMG FIT THE VIEW
+
+            }
             else
                 imageView.setImageDrawable(context.getDrawable(R.drawable.corsa));
                 //todo set default :image not avaible WITH @STRINGS IMGNOTAVAIBLE!
@@ -68,15 +75,15 @@ public class RaceAdapter extends ArrayAdapter<Race> {
         return convertView;
     }
     private Bitmap resizeBitmapForListView(Bitmap sourceBtmp){
-        Bitmap outputBtmp= sourceBtmp.copy(null,true);  //TODO CHECK DOCS
-        int width=sourceBtmp.getWidth();
-        int height=sourceBtmp.getWidth();
-//        if(width>ListaGare.MAXWIDTH)
-//            outputBtmp.setWidth(ListaGare.MAXWIDTH);
-//
-//        if(height>ListaGare.MAXHEGHT)
-//            outputBtmp.setHeight(ListaGare.MAXHEGHT);
-        //TODO TEST!
+        //dimesion of race item
+        int width=111;
+        int height=80;
+
+        Bitmap outputBtmp=Bitmap.createBitmap(sourceBtmp,0,0,width,height);
+
+//        outputBtmp.setHeight(height);
+//        outputBtmp.setWidth(width);
+
         return outputBtmp;
     }
 }

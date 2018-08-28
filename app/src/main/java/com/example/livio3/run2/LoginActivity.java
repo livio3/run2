@@ -279,9 +279,6 @@ public class LoginActivity extends AppCompatActivity  {
             if (success) {
                 Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
 
-                SimpleDateFormat simpleDateFormat= new SimpleDateFormat();
-                simpleDateFormat.format(new Date());
-                Date date= new Date();
                 intent.putExtra(KEY_ID, idMember);  // the idMember must be passed to the other activity
                 startActivity(intent);
 

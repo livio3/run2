@@ -6,14 +6,14 @@
     <string name="error_field_required">Il campo è richiesto</string>
     <string name="btnListaGare">Indietro</string>
     <string name="confirm">Conferma</string>
-    <string name="name">Nome: -</string>
-    <string name="description">Descrizione: -</string>
-    <string name="locality">Località: -</string>
-    <string name="dateRace">Data della gara: -</string>
-    <string name="prenExpire">Scadenza Prenotazione: -</string>
-    <string name="n_max_runner">Max numero di partecipanti: -</string>
-    <string name="distance">Distanza: -</string>
-    <string name="note">Nota: -</string>
+    <string name="name">Nome:</string>
+    <string name="description">Descrizione:</string>
+    <string name="locality">Località:</string>
+    <string name="dateRace">Data della gara:</string>
+    <string name="prenExpire">Scadenza Prenotazione:</string>
+    <string name="n_max_runner">Max partecipanti:</string>
+    <string name="distance">Distanza:</string>
+    <string name="note">Nota:</string>
     <string name="timeRace">Tempo di gara</string>
     <string name="listMember">Elenco soci</string>
     <string name="results">Risultati</string>
@@ -29,8 +29,11 @@
     <string name="reatchedMaxNumRunner">gara con già numero massimo di partecipanti</string>
     <string name="connectionError">errore di connessione</string>
     <string name="negativeBookResoult">gara non prenotata</string>
-    <string name="infoDetailedRace">Qui i dettagli della gara e della prenotazione</string>
+    <string name="infoDetailedRace">Informazioni Gara</string>
     <string name="raceDetailedInfo">qui dettagli della gara e della prenotazione</string>
     <string name="expiredBookTerm">termini scaduti per la prenotazione</string>
     <string name="alreadyBooked">Già prenotato per questa gara</string>
+    <string name="fixConnection">Connettiti a internet prima di continuare</string>
+    <string name="listaGareLabel">GARE</string>
+    <string name="menuLabel">MENU</string>
 </resources>
