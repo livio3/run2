@@ -102,6 +102,18 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
                 startActivity(mapIntent);
             }
         });
+        urlSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = clickedRace.getUrlRace();
+                if(url.length() > 0 && url != null) {
+                    // Make the Intent explicit by setting the Browser
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    // Attempt to start an activity that can handle the Intent
+                    startActivity(browserIntent);
+                }
+            }
+        });
         Bitmap downloadedBitmap = ListRace.imgBuffer.get(clickedRace.getUrlImage());
 
         if (downloadedBitmap != null)                  //set downloaded img not scaled

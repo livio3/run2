@@ -27,9 +27,8 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="203dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginTop="9dp"
+        android:layout_height="192dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/raceImgVBig">
@@ -48,10 +47,10 @@
 
         <TextView
             android:id="@+id/localityTv"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray"
+            android:background="?attr/colorButtonNormal"
             android:backgroundTintMode="screen"
             android:fontFamily="sans-serif-smallcaps"
             android:textColor="@android:color/holo_orange_dark"
@@ -106,8 +105,12 @@
         <TextView
             android:id="@+id/urlSite"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="19dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
+            android:typeface="sans"
+            android:background="?attr/colorButtonNormal"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/maxNumRunnerTv"
@@ -174,15 +177,15 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_height="171dp"
+        android:layout_height="193dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.888">
+        app:layout_constraintTop_toBottomOf="@+id/raceImgVBig">
 
         <TextView
             android:layout_width="match_parent"
@@ -254,9 +257,12 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="19dp"
             android:layout_weight="1"
-            android:text="@string/urlSite" />
+            android:text="@string/urlSite"
+            android:fontFamily="sans-serif-smallcaps"
+
+            android:textSize="11sp" />
 
         <TextView
             android:layout_width="match_parent"
