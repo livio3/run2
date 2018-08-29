@@ -106,6 +106,7 @@
             android:id="@+id/urlSite"
             android:layout_width="match_parent"
             android:layout_height="19dp"
+            android:fontFamily="sans-serif-smallcaps"
             android:layout_weight="1"
             android:background="?attr/colorButtonNormal"
             android:textSize="11sp" />
@@ -264,6 +265,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="@string/urlSite" />
 
         <TextView
