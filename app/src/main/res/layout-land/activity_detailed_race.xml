@@ -45,7 +45,7 @@
             android:layout_height="19dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="11sp"
             android:textStyle="bold"
             android:typeface="sans"
@@ -54,12 +54,12 @@
 
         <TextView
             android:id="@+id/localityTv"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_weight="1"
             android:background="?attr/colorButtonNormal"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textColorHighlight="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_orange_dark"
             android:textSize="11sp"
@@ -106,10 +106,11 @@
             android:id="@+id/urlSite"
             android:layout_width="match_parent"
             android:layout_height="19dp"
-            android:fontFamily="sans-serif-smallcaps"
             android:layout_weight="1"
             android:background="?attr/colorButtonNormal"
-            android:textSize="11sp" />
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="7sp" />
 
         <TextView
             android:id="@+id/timeRaceTv"
@@ -204,7 +205,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
             android:text="@string/name"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="11sp"
             android:textStyle="bold"
             android:typeface="sans"
@@ -218,7 +219,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
             android:text="@string/locality"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textColorHighlight="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_orange_dark"
             android:textSize="11sp"
@@ -266,7 +267,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="@string/urlSite" />
+            android:text="@string/urlSite"
+            android:textSize="11sp"
+            android:typeface="sans" />
 
         <TextView
             android:layout_width="match_parent"

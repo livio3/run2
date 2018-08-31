@@ -24,12 +24,8 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
                      <=CONFIRM TEXT IN DIALOG
                      by callback method bookResult
 
-    cit regoli:
-        Infine al click del bottone ‘prenota gara’
-        dovrà essere mostrato un dialog con la conferma e successivamente eseguita una
-        chiamata REST di richiesta prenotazione
-        (anche questa simulabile) in cui vengano inviate id del socio ed in della gara
-     */
+
+       */
 
     private TextView localityTv;
     private TextView bookingRes;
@@ -186,8 +182,10 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
         //return true if is expired booking date... false otherwise
         DateRace dateExpired = clickedRace.getPrenExpire();
         DateRace today = DateRace.now();
+
         //to handle date in devices with old os
         if (DateRace.compareDateRace(today, dateExpired) > 0) {
+            System.out.println(today.toString());
             return true; //expired...
         }
         return false;

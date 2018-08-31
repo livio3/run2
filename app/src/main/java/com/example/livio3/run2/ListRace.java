@@ -131,9 +131,9 @@ public class ListRace extends AppCompatActivity {
                 //TODO NO JSON=>SERIALIZED IMGS PROBABLY OLD(IF EXIST)
                 //TODO CLEAN DB cache...
                 dbAdapter.invalidAllCache();
+                System.out.println("cache invalided");
 
                 //first check network connection
-
                 ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 if(cm.getActiveNetworkInfo() == null){
                     AlertDialog.Builder dialog =

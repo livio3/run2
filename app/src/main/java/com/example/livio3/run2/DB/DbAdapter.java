@@ -232,7 +232,8 @@ public class DbAdapter {
      */
     public long addRawCache(String url, String jasonString) {
         ContentValues values = createContentValues(url, jasonString);
-        return database.insertOrThrow(DB_TABLE_CACHE, null, values);
+        return database.insertWithOnConflict(DB_TABLE_CACHE,null ,values,SQLiteDatabase.CONFLICT_REPLACE);
+//        return database.insertOrThrow(DB_TABLE_CACHE, null, values);
 
     }
 

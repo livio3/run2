@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -81,7 +82,13 @@ public class DateRace implements Serializable{
         return year+" "+month+" "+day+" ";
     }
     public String toStringTime(){
-        return hour+" : "+min;
+        String h=String.valueOf(hour);
+        String m=String.valueOf(min);
+        if(hour%10==0)
+            h=h.concat("0");
+        if(min%10==0)
+            m=m.concat("0");
+        return h+" : "+m;
     }
     protected int wrapRandomPos(int bound){
         Random random=new Random();
@@ -101,8 +108,9 @@ public class DateRace implements Serializable{
         DateRace dateRace = new DateRace();
         Calendar c = Calendar.getInstance();
 
+        c.setTime(new Date());
         dateRace.setYear(c.get(Calendar.YEAR));
-        dateRace.setMonth(c.get(Calendar.MONTH+1));
+        dateRace.setMonth(c.get(Calendar.MONTH));
         dateRace.setDay(c.get(Calendar.DAY_OF_MONTH));
         dateRace.setHour(c.get(Calendar.HOUR));
         dateRace.setMin(c.get(Calendar.MINUTE));

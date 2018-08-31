@@ -45,7 +45,7 @@ public class DownloaderTask<RETURN> extends AsyncTask<Void, Void, RETURN> {
         //download data from url, will be cached(serialized) in db cache table...
 
         //test if there's connection
-
+        System.out.println("downloading\n"+url);
         if (downloadType == IMG) {
             return (RETURN) downloaderIstance.downloadBitmap(url);
         }

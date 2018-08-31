@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:label="@string/loginLabel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

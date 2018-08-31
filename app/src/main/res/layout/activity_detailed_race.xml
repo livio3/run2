@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@android:color/holo_red_light"
         android:textColorHighlight="@android:color/holo_orange_dark"
@@ -39,7 +39,7 @@
             android:layout_height="19dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold"
             android:typeface="sans"
             tools:layout_editor_absoluteX="16dp"
@@ -53,10 +53,10 @@
             android:background="?attr/colorButtonNormal"
             android:backgroundTintMode="screen"
             android:fontFamily="sans-serif-smallcaps"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textColorHighlight="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_orange_dark"
-            android:textStyle="bold"
+            android:textStyle="bold|italic"
             android:typeface="sans"
             tools:layout_editor_absoluteX="28dp"
             tools:layout_editor_absoluteY="187dp" />
@@ -107,10 +107,12 @@
             android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-smallcaps"
-            android:typeface="sans"
             android:background="?attr/colorButtonNormal"
-            android:textSize="11sp" />
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:typeface="sans" />
 
         <TextView
             android:id="@+id/maxNumRunnerTv"
@@ -178,7 +180,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="193dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="13dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
@@ -193,7 +195,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
             android:text="@string/name"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textStyle="bold"
             android:typeface="sans"
             tools:layout_editor_absoluteX="16dp"
@@ -206,7 +208,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
             android:text="@string/locality"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/holo_blue_dark"
             android:textColorHighlight="@android:color/holo_orange_dark"
             android:textColorHint="@android:color/holo_orange_dark"
             android:textStyle="bold"
@@ -259,10 +261,11 @@
             android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_weight="1"
-            android:text="@string/urlSite"
             android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/urlSite"
 
-            android:textSize="11sp" />
+            android:textSize="14sp"
+            android:typeface="sans" />
 
         <TextView
             android:layout_width="match_parent"
