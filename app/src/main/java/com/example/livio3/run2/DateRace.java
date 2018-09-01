@@ -110,7 +110,7 @@ public class DateRace implements Serializable{
 
         c.setTime(new Date());
         dateRace.setYear(c.get(Calendar.YEAR));
-        dateRace.setMonth(c.get(Calendar.MONTH));
+        dateRace.setMonth(c.get(Calendar.MONTH)+1);
         dateRace.setDay(c.get(Calendar.DAY_OF_MONTH));
         dateRace.setHour(c.get(Calendar.HOUR));
         dateRace.setMin(c.get(Calendar.MINUTE));

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">run2</string>
+
     <string name="action_sign_in" >Accedi</string>
     <string name="error_incorrect_password" >La password o l\'username sono errati</string>
     <string name="error_field_required">Il campo è richiesto</string>
