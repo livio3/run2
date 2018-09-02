@@ -73,7 +73,7 @@ public class DetailedRace extends AppCompatActivity implements View.OnClickListe
 
 
         distanceTv.setText(String.valueOf(clickedRace.getDistance()));
-        prenExpireTv.setText(clickedRace.getPrenExpire().toString());
+        prenExpireTv.setText(clickedRace.getPrenExpire().toStringWellPrinted());
         maxNumRannerTv.setText(String.valueOf(clickedRace.getN_max_runner()));
         dateRaceTv.setText((clickedRace.getDateRace().toStringDate()));
         localityTv.setText(clickedRace.getLocality());

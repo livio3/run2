@@ -79,7 +79,7 @@ public class DateRace implements Serializable{
 
     public String toStringWellPrinted(){
 
-        return toStringDate()+"\t" //possibly add string at<->alle from strings outside context
+        return toStringDate()+"  " //possibly add string at<->alle from strings outside context
                 +toStringTime();
     }
     @Override
