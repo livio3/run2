@@ -72,12 +72,12 @@ public class LoginActivity extends AppCompatActivity  {
         dbAdapter = new DbAdapter(this);
         try {
             dbAdapter.open();
-            dbAdapter.createRunner("a", "b",  " ", " ");
+            dbAdapter.createRunner("a", "b",  "username", "password");
             usernames = takeUsernames();
             dbAdapter.close();
         }
         catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             dbAdapter.close();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>

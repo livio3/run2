@@ -1,6 +1,10 @@
 package com.example.livio3.run2;
 
+import android.content.res.Resources;
+import android.icu.text.StringSearch;
 import android.support.annotation.NonNull;
+
+import com.example.livio3.run2.DB.DbAdapter;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -73,21 +77,29 @@ public class DateRace implements Serializable{
 
     }
 
+    public String toStringWellPrinted(){
+
+        return toStringDate()+"\t" //possibly add string at<->alle from strings outside context
+                +toStringTime();
+    }
     @Override
     public String toString() {
         //date format:yyyy-MM-gg-hh:mm
         return year+"-"+month+"-"+day+"-"+hour+":"+min;
+
+
+
     }
     public String toStringDate(){
-        return year+" "+month+" "+day+" ";
+        return day+"-"+month +"-"+year;
     }
     public String toStringTime(){
         String h=String.valueOf(hour);
         String m=String.valueOf(min);
-        if(hour%10==0)
-            h=h.concat("0");
-        if(min%10==0)
-            m=m.concat("0");
+        if(hour<10)
+            h='0'+h;
+        if(min<10)
+            m+='0';
         return h+" : "+m;
     }
     protected int wrapRandomPos(int bound){

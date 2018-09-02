@@ -45,4 +45,5 @@
     <string name="loginLabel">Loggin RUN Torvergata</string>
     <string name="listaGareLabel">RACES</string>
     <string name="menuLabel">MENU</string>
+    <string name="atHour">At</string>
 </resources>

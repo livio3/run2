@@ -71,7 +71,7 @@ public class RaceAdapter extends ArrayAdapter<Race> {
 //        convertView.getBackground().setAlpha(111);
 
         tvName.setText(raceInSet.getName());
-        tvDate.setText(raceInSet.getDateRace().toString());
+        tvDate.setText(raceInSet.getDateRace().toStringWellPrinted());
         tvLocality.setText(raceInSet.getLocality());
         tvDistance.setText(String.valueOf( races.get(position).getDistance()));
         tvDistance.append("\tkm");
